@@ -1,0 +1,153 @@
+NAME
+    Scalar::Does - like ref() but useful
+
+SYNOPSIS
+      my $object = bless {}, 'Some::Class';
+  
+      does($object, 'Some::Class');   # true
+      does($object, '%{}');           # true
+      does($object, 'HASH');          # true
+      does($object, 'ARRAY');         # false
+
+DESCRIPTION
+    It has long been noted that Perl would benefit from a "does()" built-in.
+    A check that "ref($thing) eq 'ARRAY'" doesn't allow you to accept an
+    object that uses overloading to provide an array-like interface.
+
+  Functions
+    "does($scalar, $role)"
+        Checks if a scalar is capable of performing the given role. The
+        following (case-sensitive) roles are predefined:
+
+        *   SCALAR or ${}
+
+            Checks if the scalar can be used as a scalar reference.
+
+        *   ARRAY or @{}
+
+            Checks if the scalar can be used as an array reference.
+
+        *   HASH or %{}
+
+            Checks if the scalar can be used as a hash reference.
+
+        *   CODE or &{}
+
+            Checks if the scalar can be used as a code reference.
+
+        *   GLOB or *{}
+
+            Checks if the scalar can be used as a glob reference.
+
+        *   REF
+
+            Checks if the scalar can be used as a ref reference (i.e. a
+            reference to another reference).
+
+        *   LVALUE
+
+            Checks if the scalar is a reference to a special lvalue (e.g.
+            the result of "substr" or "splice").
+
+        *   IO or <>
+
+            Uses IO::Detect to check if the scalar is a filehandle or
+            file-handle-like object.
+
+            (The "<>" check is slightly looser, allowing objects which
+            overload "<>", though overloading "<>" well can be a little
+            tricky.)
+
+        *   VSTRING
+
+            Checks if the scalar is a vstring reference.
+
+        *   FORMAT
+
+            Checks if the scalar is a format reference.
+
+        *   Regexp or qr
+
+            Checks if the scalar can be used as a quoted regular expression.
+
+        *   bool
+
+            Checks if the scalar can be used as a boolean. (It's pretty rare
+            for this to not be true.)
+
+        *   ""
+
+            Checks if the scalar can be used as a string. (It's pretty rare
+            for this to not be true.)
+
+        *   0+
+
+            Checks if the scalar can be used as a number. (It's pretty rare
+            for this to not be true.)
+
+        *   ~~
+
+            Checks if the scalar can be used on the right hand side of a
+            smart match.
+
+        For roles not on the predefined list above, the following behaviour
+        is followed:
+
+        1. If the given scalar is blessed, then "$scalar->DOES($role)" is
+        called, and if that returns true, then "does" returns true.
+        2. If the given *role* is blessed, and provides a "check" method,
+        then "does" delegates to that. This allows MooseX::Types types to be
+        used as roles. (But not Moose's type constraint strings.)
+
+    "overloads($scalar, $role)"
+        A function "overloads" (which just checks overloading) is also
+        available.
+
+    "blessed($scalar)", "reftype($scalar)"
+        For convenience, this module can also re-export these functions from
+        Scalar::Util.
+
+  Export
+    By default, only "does" is exported. This module uses Sub::Exporter, so
+    functions can be renamed:
+
+      use Scalar::Does does => { -as => 'performs_role' };
+
+    Scalar::Does also plays some tricks with namespace::clean to ensure that
+    any functions it exports to your namespace are cleaned up when you're
+    finished with them. This ensures that if you're writing object-oriented
+    code "does" and "overloads" will not be left hanging around as methods
+    of your classes. Moose::Object provides a "does" method, and you should
+    be able to use Scalar::Does without interfering with that.
+
+  Custom Role Checks
+      use Scalar::Does
+        custom => { -as => 'does_array', -role => 'ARRAY' },
+        custom => { -as => 'does_hash',  -role => 'HASH'  };
+  
+      does_array($thing);
+      does_hash($thing);
+
+BUGS
+    Please report any bugs to
+    <http://rt.cpan.org/Dist/Display.html?Queue=Scalar-Does>.
+
+SEE ALSO
+    Scalar::Util, Moose::Role, MooseX::Types.
+
+    <http://perldoc.perl.org/5.10.0/perltodo.html#A-does()-built-in>.
+
+AUTHOR
+    Toby Inkster <tobyink@cpan.org>.
+
+COPYRIGHT AND LICENCE
+    This software is copyright (c) 2012 by Toby Inkster.
+
+    This is free software; you can redistribute it and/or modify it under
+    the same terms as the Perl 5 programming language system itself.
+
+DISCLAIMER OF WARRANTIES
+    THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR IMPLIED
+    WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED WARRANTIES OF
+    MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+
