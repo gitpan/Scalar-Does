@@ -33,4 +33,6 @@ t/02does.t
 t/03moosey.t
 t/04cleanliness.t
 t/05custom.t
+t/06constants.t
+t/99smartmatch.t
 SIGNATURE                                Public-key signature (added by MakeMaker)

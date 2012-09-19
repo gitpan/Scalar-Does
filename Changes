@@ -6,6 +6,19 @@ Home page:    <https://metacpan.org/release/Scalar-Does>
 Bug tracker:  <http://rt.cpan.org/Dist/Display.html?Queue=Scalar-Does>
 Maintainer:   Toby Inkster <mailto:tobyink@cpan.org>
 
+0.002  2012-09-19
+
+ - (Addition) Export constants for pre-defined roles.
+ - (Addition) Export looks_like_number.
+ - (Bugfix) Correctly determine Regexp role.
+ - (Documentation) Better documentation for interaction with Moose roles
+   and type constraints.
+ - (Documentation) Clarify that does($thing, '0+') is not the same as
+   looks_like_number.
+ - (Documentation) Document relationship with Object::DOES.
+ - (Documentation) Minor improvements.
+ - (Packaging) Improved test suite with 100% Devel::Cover coverage.
+
 0.001  2012-09-02  # Initial release
 
 

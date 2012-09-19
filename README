@@ -23,6 +23,10 @@ DESCRIPTION
 
             Checks if the scalar can be used as a scalar reference.
 
+            Note: this role does not check whether a scalar is a scalar
+            (which is obviously true) but whether it is a reference to
+            another scalar.
+
         *   ARRAY or @{}
 
             Checks if the scalar can be used as an array reference.
@@ -85,27 +89,64 @@ DESCRIPTION
             Checks if the scalar can be used as a number. (It's pretty rare
             for this to not be true.)
 
+            Note that this is far looser than "looks_like_number" from
+            Scalar::Util. For example, an unblessed arrayref can be used as
+            a number (it numifies to its reference address); the string
+            "Hello World" can be used as a number (it numifies to 0).
+
         *   ~~
 
             Checks if the scalar can be used on the right hand side of a
             smart match.
 
-        For roles not on the predefined list above, the following behaviour
-        is followed:
+        If the given *role* is blessed, and provides a "check" method, then
+        "does" delegates to that.
 
-        1. If the given scalar is blessed, then "$scalar->DOES($role)" is
-        called, and if that returns true, then "does" returns true.
-        2. If the given *role* is blessed, and provides a "check" method,
-        then "does" delegates to that. This allows MooseX::Types types to be
-        used as roles. (But not Moose's type constraint strings.)
+        Otherwise, if the scalar being tested is blessed, then
+        "$scalar->DOES($role)" is called, and "does" returns true if the
+        method call returned true.
+
+        If the scalar being tested looks like a Perl class name, then
+        "$scalar->DOES($role)" is also called, and the string "0E0" is
+        returned, which evaluates to 0 in a numeric context but true in a
+        boolean context. This is an experimental feature; it has not yet
+        been decided whether true or false is the correct response. Testing
+        class names is a little dodgy, because you might get a different
+        when testing instances of the class. For example, instances are
+        typically blessed hashes, so "does($obj, 'HASH')" is true. However,
+        it is impossible to tell that from the class name.
+
+        Note that the "DOES" method is only defined in UNIVERSAL in Perl
+        5.10+. You may wish to load UNIVERSAL::DOES on earlier versions of
+        Perl.
 
     "overloads($scalar, $role)"
         A function "overloads" (which just checks overloading) is also
         available.
 
-    "blessed($scalar)", "reftype($scalar)"
+    "blessed($scalar)", "reftype($scalar)", "looks_like_number($scalar)"
         For convenience, this module can also re-export these functions from
-        Scalar::Util.
+        Scalar::Util. "looks_like_number" is generally more useful than
+        "does($scalar, q[0+])".
+
+  Constants
+    The following constants may be used for convenience:
+
+    "SCALAR"
+    "ARRAY"
+    "HASH"
+    "CODE"
+    "GLOB"
+    "REF"
+    "LVALUE"
+    "IO"
+    "VSTRING"
+    "FORMAT"
+    "REGEXP"
+    "BOOLEAN"
+    "STRING"
+    "NUMBER"
+    "SMARTMATCH"
 
   Export
     By default, only "does" is exported. This module uses Sub::Exporter, so
@@ -120,6 +161,14 @@ DESCRIPTION
     of your classes. Moose::Object provides a "does" method, and you should
     be able to use Scalar::Does without interfering with that.
 
+    You can import the constants (plus "does") using:
+
+      use Scalar::Does -constants;
+
+    Or list specific functions/constants that you wish to import:
+
+      use Scalar::Does qw( does ARRAY HASH STRING NUMBER );
+
   Custom Role Checks
       use Scalar::Does
         custom => { -as => 'does_array', -role => 'ARRAY' },
@@ -133,9 +182,76 @@ BUGS
     <http://rt.cpan.org/Dist/Display.html?Queue=Scalar-Does>.
 
 SEE ALSO
-    Scalar::Util, Moose::Role, MooseX::Types.
+    Scalar::Util.
 
     <http://perldoc.perl.org/5.10.0/perltodo.html#A-does()-built-in>.
+
+  Relationship to Moose roles
+    Scalar::Does is not dependent on Moose, and its role-checking is not
+    specific to Moose's idea of roles, but it does work well with Moose
+    roles.
+
+    Moose::Object overrides "DOES", so Moose objects and Moose roles should
+    "just work" with Scalar::Does.
+
+      {
+        package Transport;
+        use Moose::Role;
+      }
+  
+      {
+        package Train;
+        use Moose;
+        with qw(Transport);
+      }
+  
+      my $thomas = Train->new;
+      does($thomas, 'Train');          # true
+      does($thomas, 'Transport');      # true
+      does($thomas, Transport->meta);  # not yet supported!
+
+    Mouse::Object should be compatible enough to work as well, but seemingly
+    not Moo::Object.
+
+    See also: Moose::Role, Moose::Object, UNIVERSAL.
+
+  Relationship to Moose type constraints
+    Moose::Meta::TypeConstraint objects, plus the constants exported by
+    MooseX::Types libraries all provide a "check" method, so again, should
+    "just work" with Scalar::Does. Type constraint strings are not supported
+    however.
+
+      use Moose::Util::TypeConstraints qw(find_type_constraint);
+      use MooseX::Types qw(Int);
+      use Scalar::Does qw(does);
+  
+      my $int = find_type_constraint("Int");
+  
+      does( "123", $int );     # true
+      does( "123", Int );      # true
+      does( "123", "Int" );    # false
+
+    Mouse::Meta::TypeConstraints and MouseX::Types should be compatible
+    enough to work as well.
+
+    See also: Moose::Meta::TypeConstraint, Moose::Util::TypeConstraints,
+    MooseX::Types.
+
+  Relationship to Object::DOES
+    Object::DOES provides a convenient way of overriding "DOES" in your
+    classes.
+
+      {
+        package Train;
+        use Object::DOES -role => [qw/ Transport /];
+        sub new { my ($class, %arg) = @_; bless \%arg, $class }
+      }
+  
+      my $thomas = Train->new;
+      does($thomas, 'Train');      # true
+      does($thomas, 'Transport');  # true
+
+    See also: Object::DOES.
 
 AUTHOR
     Toby Inkster <tobyink@cpan.org>.
