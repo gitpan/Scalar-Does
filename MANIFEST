@@ -20,6 +20,7 @@ inc/unicore/Name.pm
 inc/utf8.pm
 inc/YAML/Tiny.pm
 lib/Scalar/Does.pm
+lib/Scalar/Does/MooseTypes.pm
 LICENSE
 Makefile.PL
 MANIFEST			This list of files
@@ -34,5 +35,8 @@ t/03moosey.t
 t/04cleanliness.t
 t/05custom.t
 t/06constants.t
+t/07makerole.t
+t/08mooselike.t
 t/99smartmatch.t
+TODO
 SIGNATURE                                Public-key signature (added by MakeMaker)

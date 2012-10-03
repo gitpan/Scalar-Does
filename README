@@ -120,14 +120,30 @@ DESCRIPTION
         5.10+. You may wish to load UNIVERSAL::DOES on earlier versions of
         Perl.
 
+    "does($role)"
+        The single-argument form of "does" returns a curried coderef.
+
     "overloads($scalar, $role)"
         A function "overloads" (which just checks overloading) is also
         available.
+
+    "overloads($role)"
+        The single-argument form of "overloads" returns a curried coderef.
 
     "blessed($scalar)", "reftype($scalar)", "looks_like_number($scalar)"
         For convenience, this module can also re-export these functions from
         Scalar::Util. "looks_like_number" is generally more useful than
         "does($scalar, q[0+])".
+
+    "make_role $name, where { BLOCK }"
+        Returns an anonymous role object which can be used as a parameter to
+        "does". The block is arbitrary code which should check whether $_[0]
+        does the role.
+
+    "where { BLOCK }"
+        Syntactic sugar for "make_role". Compatible with the "where"
+        function from Moose::Util::TypeConstraints, so don't worry about
+        conflicts.
 
   Constants
     The following constants may be used for convenience:
@@ -164,6 +180,10 @@ DESCRIPTION
     You can import the constants (plus "does") using:
 
       use Scalar::Does -constants;
+
+    The "make_role" and "where" functions can be exported like this:
+
+      use Scalar::Does -make;
 
     Or list specific functions/constants that you wish to import:
 
@@ -235,7 +255,26 @@ SEE ALSO
     enough to work as well.
 
     See also: Moose::Meta::TypeConstraint, Moose::Util::TypeConstraints,
-    MooseX::Types.
+    MooseX::Types, Scalar::Does::MooseTypes.
+
+  Relationship to Role::Tiny and Moo roles
+    At the time of writing, Role::Tiny roles do not work as roles for
+    Scalar::Does. There is an open ticket against Role::Tiny which, if
+    resolved, should fix this.
+
+    See <https://rt.cpan.org/Ticket/Display.html?id=79747>.
+
+    Moo's role system is based on Role::Tiny, and consequently has the same
+    limitation.
+
+  Relationship to Moo type constraints
+    Unlike Moose and Mouse, Moo does not have a type system, but the "does"
+    function can be used as ersatz type constraints.
+
+      has my_list => (
+        is     => 'rw',
+        isa    => does('ARRAY'),
+      );
 
   Relationship to Object::DOES
     Object::DOES provides a convenient way of overriding "DOES" in your
