@@ -230,7 +230,7 @@ SEE ALSO
       does($thomas, 'Transport');      # true
       does($thomas, Transport->meta);  # not yet supported!
 
-    Mouse::Object should be compatible enough to work as well, but seemingly
+    Mouse::Object should be compatible enough to work as well, but currently
     not Moo::Object.
 
     See also: Moose::Role, Moose::Object, UNIVERSAL.
@@ -267,14 +267,7 @@ SEE ALSO
     Moo's role system is based on Role::Tiny, and consequently has the same
     limitation.
 
-  Relationship to Moo type constraints
-    Unlike Moose and Mouse, Moo does not have a type system, but the "does"
-    function can be used as ersatz type constraints.
-
-      has my_list => (
-        is     => 'rw',
-        isa    => does('ARRAY'),
-      );
+    See also: Role::Tiny, Moo::Role.
 
   Relationship to Object::DOES
     Object::DOES provides a convenient way of overriding "DOES" in your
