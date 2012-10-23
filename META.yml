@@ -5,6 +5,7 @@ author:
 build_requires:
   ExtUtils::MakeMaker: 6.59
   Test::More: 0.61
+  Test::NoWarnings: 0
 configure_requires:
   ExtUtils::MakeMaker: 6.59
 distribution_type: module
@@ -34,4 +35,4 @@ resources:
   homepage: https://metacpan.org/release/Scalar-Does
   license: http://dev.perl.org/licenses/
   repository: https://bitbucket.org/tobyink/p5-scalar-does
-version: 0.006
+version: 0.007

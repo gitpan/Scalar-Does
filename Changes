@@ -6,6 +6,11 @@ Home page:    <https://metacpan.org/release/Scalar-Does>
 Bug tracker:  <http://rt.cpan.org/Dist/Display.html?Queue=Scalar-Does>
 Maintainer:   Toby Inkster <mailto:tobyink@cpan.org>
 
+0.007  2012-10-23  # Skyfall
+
+ - (Bugfix) Fix warning on does(undef, $role) when $^W is true.
+   ++$DAMI
+
 0.006  2012-10-07
 
  - (Packaging) Fix failing test case in Perl 5.8.
