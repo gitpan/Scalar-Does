@@ -2,12 +2,14 @@ NAME
     Scalar::Does - like ref() but useful
 
 SYNOPSIS
+      use Scalar::Does qw( -constants );
+  
       my $object = bless {}, 'Some::Class';
   
       does($object, 'Some::Class');   # true
       does($object, '%{}');           # true
-      does($object, 'HASH');          # true
-      does($object, 'ARRAY');         # false
+      does($object, HASH);            # true
+      does($object, ARRAY);           # false
 
 DESCRIPTION
     It has long been noted that Perl would benefit from a "does()" built-in.
@@ -121,14 +123,29 @@ DESCRIPTION
         Perl.
 
     "does($role)"
-        The single-argument form of "does" returns a curried coderef.
+        Called with a single argument, tests $_. Yes, this works with
+        lexical $_.
+
+          given ($object) {
+             when(does ARRAY)  { ... }
+             when(does HASH)   { ... }
+          }
+
+        Note: in Scalar::Does 0.007 and below the single-argument form of
+        "does" returned a curried coderef. This was changed in Scalar::Does
+        0.008.
 
     "overloads($scalar, $role)"
         A function "overloads" (which just checks overloading) is also
         available.
 
     "overloads($role)"
-        The single-argument form of "overloads" returns a curried coderef.
+        Called with a single argument, tests $_. Yes, this works with
+        lexical $_.
+
+        Note: in Scalar::Does 0.007 and below the single-argument form of
+        "overloads" returned a curried coderef. This was changed in
+        Scalar::Does 0.008.
 
     "blessed($scalar)", "reftype($scalar)", "looks_like_number($scalar)"
         For convenience, this module can also re-export these functions from
@@ -230,8 +247,7 @@ SEE ALSO
       does($thomas, 'Transport');      # true
       does($thomas, Transport->meta);  # not yet supported!
 
-    Mouse::Object should be compatible enough to work as well, but currently
-    not Moo::Object.
+    Mouse::Object should be compatible enough to work as well.
 
     See also: Moose::Role, Moose::Object, UNIVERSAL.
 
@@ -258,32 +274,13 @@ SEE ALSO
     MooseX::Types, Scalar::Does::MooseTypes.
 
   Relationship to Role::Tiny and Moo roles
-    At the time of writing, Role::Tiny roles do not work as roles for
-    Scalar::Does. There is an open ticket against Role::Tiny which, if
-    resolved, should fix this.
+    Roles using Role::Tiny 1.002000 and above provide a "DOES" method, so
+    should work with Scalar::Does just like Moose roles. Prior to that
+    release, Role::Tiny did not provide "DOES".
 
-    See <https://rt.cpan.org/Ticket/Display.html?id=79747>.
-
-    Moo's role system is based on Role::Tiny, and consequently has the same
-    limitation.
+    Moo's role system is based on Role::Tiny.
 
     See also: Role::Tiny, Moo::Role.
-
-  Relationship to Object::DOES
-    Object::DOES provides a convenient way of overriding "DOES" in your
-    classes.
-
-      {
-        package Train;
-        use Object::DOES -role => [qw/ Transport /];
-        sub new { my ($class, %arg) = @_; bless \%arg, $class }
-      }
-  
-      my $thomas = Train->new;
-      does($thomas, 'Train');      # true
-      does($thomas, 'Transport');  # true
-
-    See also: Object::DOES.
 
 AUTHOR
     Toby Inkster <tobyink@cpan.org>.

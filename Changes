@@ -6,6 +6,16 @@ Home page:    <https://metacpan.org/release/Scalar-Does>
 Bug tracker:  <http://rt.cpan.org/Dist/Display.html?Queue=Scalar-Does>
 Maintainer:   Toby Inkster <mailto:tobyink@cpan.org>
 
+0.008  2012-10-27
+
+ - (Documentation Removal) Remove references to Object-DOES in
+   documentation.
+ - (Documentation) Revise documentation about Role::Tiny/Moo::Role's lack
+   of DOES; it is now implemented.
+ - INCOMPATIBLE CHANGE: single-argument does($role) and overloads($role)
+   now check $_.
+   ++$DAMI
+
 0.007  2012-10-23  # Skyfall
 
  - (Bugfix) Fix warning on does(undef, $role) when $^W is true.

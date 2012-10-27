@@ -26,6 +26,7 @@ no_index:
 requires:
   Carp: 0
   IO::Detect: 0.001
+  PadWalker: 0
   Scalar::Util: 1.20
   Sub::Exporter: 0
   namespace::clean: 0.19
@@ -35,4 +36,4 @@ resources:
   homepage: https://metacpan.org/release/Scalar-Does
   license: http://dev.perl.org/licenses/
   repository: https://bitbucket.org/tobyink/p5-scalar-does
-version: 0.007
+version: 0.008

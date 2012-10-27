@@ -38,6 +38,7 @@ t/06constants.t
 t/07makerole.t
 t/08mooselike.t
 t/09warnings.t
-t/99smartmatch.t
+t/10underscore.t
+t/11givenwhen.t
 TODO
 SIGNATURE                                Public-key signature (added by MakeMaker)
