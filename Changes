@@ -6,6 +6,13 @@ Home page:    <https://metacpan.org/release/Scalar-Does>
 Bug tracker:  <http://rt.cpan.org/Dist/Display.html?Queue=Scalar-Does>
 Maintainer:   Toby Inkster <mailto:tobyink@cpan.org>
 
+0.009  2012-11-05  # Gunpowder, treason and plot
+
+ - (Bugfix) Skip test '10underscore.t' on Perl 5.008 as it doesn't support
+   lexical $_.
+ - (Bugfix) use if $] < 5.010, 'UNIVERSAL::DOES'.
+ - (Packaging) Requires UNIVERSAL::DOES in Perl < 5.010.
+
 0.008  2012-10-27
 
  - (Documentation Removal) Remove references to Object-DOES in

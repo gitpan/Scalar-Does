@@ -118,10 +118,6 @@ DESCRIPTION
         typically blessed hashes, so "does($obj, 'HASH')" is true. However,
         it is impossible to tell that from the class name.
 
-        Note that the "DOES" method is only defined in UNIVERSAL in Perl
-        5.10+. You may wish to load UNIVERSAL::DOES on earlier versions of
-        Perl.
-
     "does($role)"
         Called with a single argument, tests $_. Yes, this works with
         lexical $_.
