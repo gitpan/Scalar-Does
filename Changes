@@ -6,12 +6,18 @@ Home page:    <https://metacpan.org/release/Scalar-Does>
 Bug tracker:  <http://rt.cpan.org/Dist/Display.html?Queue=Scalar-Does>
 Maintainer:   Toby Inkster <mailto:tobyink@cpan.org>
 
+0.011_01  2012-12-15
+
+ - (Bugfix) Attempt to fix some problems CPAN smoke tests are reporting in
+   09warnings.t.
+
 0.010  2012-12-05
 
  - (Documentation) Add documentation for test suite.
  - (Update) Perl 5.17 has changed the behaviour of UNIVERSAL::can($pkg,
    'can'), so that it is no longer useful for detecting whether a package
    is loaded. Changed Scalar::Does::MooseLike to avoid this idiom.
+   ++$DAMI
 
 0.009  2012-11-05  # Gunpowder, treason and plot
 
