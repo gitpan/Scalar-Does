@@ -21,6 +21,8 @@ inc/Scalar/Util.pm
 inc/unicore/Name.pm
 inc/utf8.pm
 inc/YAML/Tiny.pm
+IO-Detect-Changes.txt
+lib/IO/Detect.pm
 lib/Scalar/Does.pm
 lib/Scalar/Does/MooseTypes.pm
 LICENSE
@@ -30,6 +32,7 @@ META.yml
 meta/changes.pret
 meta/doap.pret
 meta/makefile.pret
+NEWS
 README
 t/01basic.t
 t/02does.t
@@ -42,5 +45,13 @@ t/08mooselike.t
 t/09warnings.t
 t/10underscore.t
 t/11givenwhen.t
+t/iod-01basic.t
+t/iod-02filehandles.t
+t/iod-03filenames.t
+t/iod-04fileuris.t
+t/iod-05ducktype.t
+t/iod-11ioall.t
+t/iod-12pathclass.t
+t/iod-13pathtiny.t
 TODO
 SIGNATURE                                Public-key signature (added by MakeMaker)

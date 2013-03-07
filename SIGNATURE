@@ -1,5 +1,5 @@
 This file contains message digests of all files listed in MANIFEST,
-signed via the Module::Signature module, version 0.68.
+signed via the Module::Signature module, version 0.70.
 
 To verify the content in this distribution, first make sure you have
 Module::Signature installed, then type:
@@ -14,13 +14,15 @@ not run its Makefile.PL or Build.PL.
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA1
 
-SHA1 8389080ac999111e41d4036b7015aed0cee4615e COPYRIGHT
-SHA1 be7d6c8ce0b9286c872715d27877503997553740 Changes
+SHA1 bc87438baddb6153255b7f9bcd9b7f8cedb18f59 COPYRIGHT
+SHA1 b642bfbd20327eeff27d4e5c269a31681370f203 Changes
 SHA1 58e47fed556f626572681c48158a3ecd44ce179d HACKING
+SHA1 f596e25feab3c59ca095da6b8864876a623bb953 IO-Detect-Changes.txt
 SHA1 937d452c5c4069f4cda9ffaf45a33f1eb5f060e8 LICENSE
-SHA1 bfb2e4a92c0e8ee8c10f8be072db9a6a083ab24c MANIFEST
-SHA1 73259fc194ac1d2819ae33783ec67a49de1e8a56 META.yml
+SHA1 05889364f78e07da30cbb09d076870d6a7a33cbc MANIFEST
+SHA1 9ac33d0008151d5f72d10f3ded0733ad76dc7416 META.yml
 SHA1 d970fbc25f7149da00cf72b999d8b9db800f8c97 Makefile.PL
+SHA1 4dc2ac6d2ecfdd04f010a8c3ae257819487acf0a NEWS
 SHA1 e62c7c1ed103e3f0731e387577b092c398176689 README
 SHA1 2b923a21dec40d781654d7549de880213c28ac6b TODO
 SHA1 06c410f05488c1612ed66b06d3a86b2580581e4a inc/Module/AutoInstall.pm
@@ -43,11 +45,12 @@ SHA1 0e0eed2e69d9583081868cf4f220068d0a018568 inc/Scalar/Util.pm
 SHA1 feb933cefe2e3762e8322bd6071a2499f3440da1 inc/YAML/Tiny.pm
 SHA1 8105c0510a773b56840995fb4dd2dc64fe9ddaee inc/unicore/Name.pm
 SHA1 36df501c7c9b73c282c5174ed54d8283b2f2cbf2 inc/utf8.pm
-SHA1 30d7d39a1981446323b0263083a56d5f2034b2f4 lib/Scalar/Does.pm
-SHA1 ddaad4c9a05e97a67d690ea9e8c74c4f2d82ced8 lib/Scalar/Does/MooseTypes.pm
-SHA1 a189fb7190b70d8384237e9eadfb47d8d7049260 meta/changes.pret
+SHA1 46d608e6515055a8d26336be68a3b602c139ca53 lib/IO/Detect.pm
+SHA1 763a655812ca1346c13bd95a15685e67f2be8c1c lib/Scalar/Does.pm
+SHA1 3a3c0ec7c03cdbe0df31a11b362999390e20f916 lib/Scalar/Does/MooseTypes.pm
+SHA1 19ae4fa42453373d0a339f0e8c84de0aa7070925 meta/changes.pret
 SHA1 75e55bccfb1d76bd309d518d173c5333be2d4925 meta/doap.pret
-SHA1 d5360588715d2bdd45ef0ef0066d2e28e1a5d973 meta/makefile.pret
+SHA1 2e2be32c61e900307cdf0d60ab71897acb64586b meta/makefile.pret
 SHA1 01cf3952ce8cfcf76d6b21543ed82b5a4dbbdd8a t/01basic.t
 SHA1 7c41d3b2dd456af97a23034ae3c85a5210cd29bc t/02does.t
 SHA1 0b718e6e51342c81d9c6a989cdeffde311717727 t/03moosey.t
@@ -59,10 +62,18 @@ SHA1 25a94b50a9c0138a6cf49ab769dd774338900618 t/08mooselike.t
 SHA1 0d29634f2fb41e4633fb16d06e6b8500f91991ea t/09warnings.t
 SHA1 3ed5c70cd9ea2e3f2951c6ec0baef7ebddf62612 t/10underscore.t
 SHA1 f1ab3948c78f37e706279c5b53db76091850e8c2 t/11givenwhen.t
+SHA1 6dab3c15a4c26944e336b4accf63c583d5645265 t/iod-01basic.t
+SHA1 c56663aa969c38b5d7f78d31274f53bbfbd8c98f t/iod-02filehandles.t
+SHA1 ed066e0a64b3c1999ee1e81acb844b0d07b30747 t/iod-03filenames.t
+SHA1 c8f13071a4c8282a85fe9cd4389aa412e2e3eb23 t/iod-04fileuris.t
+SHA1 dd3e42cc1c33f50ca0bc0343e2ed0b9334c9e32d t/iod-05ducktype.t
+SHA1 145d7ae88631dec7a4ccaf2452725c2d4e261d9f t/iod-11ioall.t
+SHA1 bc0ea878b6f0a89b316219d646ab809d1312282d t/iod-12pathclass.t
+SHA1 9013555d906898ebbd23662307cf2f50ab9b350f t/iod-13pathtiny.t
 -----BEGIN PGP SIGNATURE-----
-Version: GnuPG v1.4.10 (GNU/Linux)
+Version: GnuPG v1.4.11 (GNU/Linux)
 
-iEYEARECAAYFAlDv8WQACgkQzr+BKGoqfTnZtgCgsT5Hj3RU5FAvjikVLkqTJ80E
-EZgAoJhpIW48kZia2Rb8Pht4E22Rskhu
-=m6ib
+iEYEARECAAYFAlE5BEEACgkQzr+BKGoqfTkJsQCfftT+tV5PivKcdQNZffNyCACU
+Ib4AnimweycUnB2QKHla7JFbbl9Sqwn3
+=T9Bk
 -----END PGP SIGNATURE-----

@@ -6,6 +6,13 @@ Home page:    <https://metacpan.org/release/Scalar-Does>
 Bug tracker:  <http://rt.cpan.org/Dist/Display.html?Queue=Scalar-Does>
 Maintainer:   Toby Inkster <mailto:tobyink@cpan.org>
 
+0.100  2013-03-07
+
+ - (Packaging) Merge IO-Detect distribution into Scalar-Does.
+ - (Packaging) The IO-Detect-Changes.txt file lists changes to the
+   IO-Detect distribution prior to merge.
+ - (Update) New test case for IO::Detect/Path::Tiny interaction.
+
 0.012  2013-01-11
 
  - (Documentation) Copyright 2013.
