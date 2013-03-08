@@ -50,6 +50,7 @@ t/iod-02filehandles.t
 t/iod-03filenames.t
 t/iod-04fileuris.t
 t/iod-05ducktype.t
+t/iod-06asfh.t
 t/iod-11ioall.t
 t/iod-12pathclass.t
 t/iod-13pathtiny.t

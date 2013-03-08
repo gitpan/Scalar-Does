@@ -2,13 +2,12 @@ package Scalar::Does;
 
 use 5.008;
 use strict;
-use utf8;
 use if $] < 5.010, 'UNIVERSAL::DOES';
 
 our %_CONSTANTS;
 BEGIN {
 	$Scalar::Does::AUTHORITY = 'cpan:TOBYINK';
-	$Scalar::Does::VERSION   = '0.100';
+	$Scalar::Does::VERSION   = '0.101';
 	
 	%_CONSTANTS = (
 		BOOLEAN    => q[bool],
@@ -26,7 +25,7 @@ BEGIN {
 BEGIN {
 	package Scalar::Does::RoleChecker;
 	$Scalar::Does::RoleChecker::AUTHORITY = 'cpan:TOBYINK';
-	$Scalar::Does::RoleChecker::VERSION   = '0.100';
+	$Scalar::Does::RoleChecker::VERSION   = '0.101';
 	use overload
 		q[""]    => 'name',
 		q[&{}]   => 'code',
@@ -77,6 +76,11 @@ use Sub::Exporter -setup => {
 	},
 };
 
+sub _lu {
+	require lexical::underscore;
+	goto \&lexical::underscore;
+}
+
 no warnings;
 
 my %ROLES = (
@@ -107,29 +111,17 @@ my %ROLES = (
 while (my ($k, $v) = each %ROLES)
 	{ $ROLES{$k} = $ROLES{$v} unless ref $v }
 
-sub _process
-{
-	if (@_==1)
-	{
-		require PadWalker;
-		my $h = PadWalker::peek_my(2);
-		unshift @_,
-			exists $h->{'$_'} ? ${$h->{'$_'}} : $_;
-	}
-	return @_;
-}
-
 sub overloads ($;$)
 {
-	my ($thing, $role) = _process @_;
-		
-	return unless defined $thing;
+	unshift @_, ${+_lu} if @_ == 1;
+	return unless blessed $_[0];
 	goto \&overload::Method;
 }
 
 sub does ($;$)
 {
-	my ($thing, $role) = _process @_;
+	unshift @_, ${+_lu} if @_ == 1;
+	my ($thing, $role) = @_;
 	
 	if (my $test = $ROLES{$role})
 	{
@@ -144,7 +136,7 @@ sub does ($;$)
 	
 	if (blessed $thing && $thing->can('DOES'))
 	{
-		return 1 if $thing->DOES($role);
+		return !! 1 if $thing->DOES($role);
 	}
 	elsif (UNIVERSAL::can($thing, 'can') && $thing->can('DOES'))
 	{
@@ -303,13 +295,8 @@ the method call returned true.
 
 If the scalar being tested looks like a Perl class name, then 
 C<< $scalar->DOES($role) >> is also called, and the string "0E0" is
-returned, which evaluates to 0 in a numeric context but true in a
-boolean context. This is an experimental feature; it has not yet
-been decided whether true or false is the correct response. Testing
-class names is a little dodgy, because you might get a different
-when testing instances of the class. For example, instances are
-typically blessed hashes, so C<< does($obj, 'HASH') >> is true.
-However, it is impossible to tell that from the class name.
+returned for success, which evaluates to 0 in a numeric context but
+true in a boolean context.
 
 =item C<< does($role) >>
 

@@ -8,7 +8,8 @@
 	requires          p`URI::file`;
 	requires          p`Scalar::Util 1.24`;
 	requires          p`Sub::Exporter`;
-	requires          p`PadWalker`;
+	requires          p`lexical::underscore`;
 	test_requires     p`Test::NoWarnings 0`;
-	test_requires     p`Test::More 0.61`.
-
+	test_requires     p`Test::Requires`;
+	test_requires     p`URI`;
+.

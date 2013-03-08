@@ -17,7 +17,10 @@ the same terms as the Perl 5 programming language system itself.
 
 =cut
 
+use strict;
+use warnings;
 use Test::More;
+
 use IO::Detect qw( is_fileuri FileUri );
 use URI;
 
@@ -47,13 +50,13 @@ my @uris = qw(
 if ($] >= 5.010)
 {
 	eval q[
+		use IO::Detect -smartmatch, -default;
 		ok(is_fileuri, sprintf("is_fileuri %s %s", ref $_, $_)) foreach @uris;
 		ok($_ ~~ FileUri, sprintf("is_fileuri %s %s", ref $_, $_)) foreach @uris;
 	];
 }
 
 ok not is_fileuri 'http://localhost/';
-
 ok not is_fileuri "http://localhost/\nfile://";
 
 done_testing();

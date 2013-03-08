@@ -15,12 +15,10 @@ the same terms as the Perl 5 programming language system itself.
 
 =cut
 
+use strict;
+use warnings;
 use Test::More;
-
-BEGIN {
-	eval { require Moose; require MooseX::Types::Moose; 1 }
-		or plan skip_all => "needs Moose and MooseX::Types::Moose";
-}
+use Test::Requires "Moose", "MooseX::Types::Moose";
 
 use Scalar::Does;
 use MooseX::Types::Moose -all;

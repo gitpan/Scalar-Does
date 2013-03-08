@@ -18,13 +18,15 @@ L<http://stackoverflow.com/questions/3214647/what-is-the-best-way-to-determine-i
 # http://stackoverflow.com/questions/3214647/what-is-the-best-way-to-determine-if-a-scalar-holds-a-filehandle
 #
 
+use strict;
+use warnings;
+use Test::More;
+
 use FileHandle;
 use IO::File;
 use IO::Socket::INET;
 
 use IO::Detect qw( is_filehandle FileHandle );
-
-use Test::More;
 
 plan skip_all => "only works on Linux" unless $^O =~ /linux/i;
 
@@ -85,15 +87,10 @@ if ($] >= 5.010)
 	foreach (@handles)
 	{
 		my ($truth, $label, $fh) = @$_;
-		
-		if ($truth)
-		{
-			eval q[ ok($fh ~~ FileHandle, "smart match positive for $label") ];
-		}
-		else
-		{
-			eval q[ ok(not($fh ~~ FileHandle), "smart match negitive for $label") ];
-		}
+		my $eval = $truth
+			? q[ ok($fh ~~ FileHandle, "smart match positive for $label") ]
+			: q[ ok(not($fh ~~ FileHandle), "smart match negitive for $label") ];
+		eval "use IO::Detect -smartmatch; $eval";
 	}
 }
 

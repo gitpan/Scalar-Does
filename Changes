@@ -6,6 +6,18 @@ Home page:    <https://metacpan.org/release/Scalar-Does>
 Bug tracker:  <http://rt.cpan.org/Dist/Display.html?Queue=Scalar-Does>
 Maintainer:   Toby Inkster <mailto:tobyink@cpan.org>
 
+0.101  2013-03-08
+
+ - (Documentation) Show how IO::Detect's constants can be used with
+   Scalar::Does's does() function.
+ - IO::Detect now performs the same namespace::clean trickery as
+   Scalar::Does to fake lexical subs.
+ - Improve test suite cleanliness; use Test::Requires, etc.
+ - does($class, $overloaded_operation) no longer returns true.
+   does($instance, $overloaded_operation) still works of course!
+ - use lexical::underscore instead of directly mucking around with
+   PadWalker.
+
 0.100  2013-03-07
 
  - (Packaging) Merge IO-Detect distribution into Scalar-Does.

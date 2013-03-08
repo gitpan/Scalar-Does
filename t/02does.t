@@ -15,7 +15,10 @@ the same terms as the Perl 5 programming language system itself.
 
 =cut
 
+use strict;
+use warnings;
 use Test::More;
+
 use Scalar::Does;
 
 {
@@ -82,8 +85,8 @@ my %tests = (
 	],
 	Overloaded_Class => [
 		'Local::Does::Array',
-		does   => [qw( bool "" ARRAY @{} Local::Does::Array UNIVERSAL Monkey )],
-		doesnt => [qw( CODE Gorilla HASH %{} )],
+		does   => [qw( bool "" Local::Does::Array UNIVERSAL Monkey )],
+		doesnt => [qw( CODE Gorilla HASH %{} ARRAY @{} )],
 	],
 	STDOUT => [
 		\*STDOUT,

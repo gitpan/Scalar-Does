@@ -110,13 +110,8 @@ DESCRIPTION
 
         If the scalar being tested looks like a Perl class name, then
         "$scalar->DOES($role)" is also called, and the string "0E0" is
-        returned, which evaluates to 0 in a numeric context but true in a
-        boolean context. This is an experimental feature; it has not yet
-        been decided whether true or false is the correct response. Testing
-        class names is a little dodgy, because you might get a different
-        when testing instances of the class. For example, instances are
-        typically blessed hashes, so "does($obj, 'HASH')" is true. However,
-        it is impossible to tell that from the class name.
+        returned for success, which evaluates to 0 in a numeric context but
+        true in a boolean context.
 
     "does($role)"
         Called with a single argument, tests $_. Yes, this works with

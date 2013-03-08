@@ -17,7 +17,10 @@ the same terms as the Perl 5 programming language system itself.
 
 =cut
 
+use strict;
+use warnings;
 use Test::More;
+
 use IO::Detect qw( is_filename FileName );
 
 my @filenames = qw(
@@ -40,10 +43,17 @@ push @filenames, Local::Stringifier->new(__FILE__);
 ok !is_filename([]), 'is_filename ARRAY';
 ok !is_filename(undef), 'is_filename undef';
 ok !is_filename(''), 'is_filename empty string';
+ok !is_filename(<<'FILENAME'), 'is_filename multiline';
+multi
+line
+string
+FILENAME
 
 if ($] >= 5.010)
 {
 	eval q[
+		use IO::Detect -smartmatch, -default;
+		
 		ok(is_filename, "is_filename $_") for @filenames;
 
 		ok not([]    ~~ FileName), 'ARRAY ~~ FileName';

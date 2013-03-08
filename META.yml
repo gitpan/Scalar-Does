@@ -4,8 +4,9 @@ author:
   - 'Toby Inkster <tobyink@cpan.org>'
 build_requires:
   ExtUtils::MakeMaker: 6.59
-  Test::More: 0.61
   Test::NoWarnings: 0
+  Test::Requires: 0
+  URI: 0
 configure_requires:
   ExtUtils::MakeMaker: 6.59
 distribution_type: module
@@ -24,10 +25,10 @@ no_index:
     - t
     - xt
 requires:
-  PadWalker: 0
   Scalar::Util: 1.24
   Sub::Exporter: 0
   URI::file: 0
+  lexical::underscore: 0
   namespace::clean: 0.19
   perl: 5.8.0
 resources:
@@ -35,4 +36,4 @@ resources:
   homepage: https://metacpan.org/release/Scalar-Does
   license: http://dev.perl.org/licenses/
   repository: https://bitbucket.org/tobyink/p5-scalar-does
-version: 0.100
+version: 0.101

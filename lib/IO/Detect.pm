@@ -4,24 +4,14 @@ use 5.008;
 use constant { false => !1, true => !0 };
 use strict;
 use warnings;
-use utf8;
+use if $] < 5.010, 'UNIVERSAL::DOES';
 
 BEGIN {
 	$IO::Detect::AUTHORITY = 'cpan:TOBYINK';
-	$IO::Detect::VERSION   = '0.100';
-	
-	*UNIVERSAL::DOES = sub { shift->isa(@_) }
-		unless UNIVERSAL->can('DOES');
+	$IO::Detect::VERSION   = '0.101';
 }
 
-# This is kinda dumb, but Perl 5.8 doesn't grok the _ prototype.
-BEGIN {
-	if ($] < 5.010)
-		{ eval "sub $_ (\$);" for qw(is_filehandle is_fileuri is_filename) }
-	else
-		{ eval "sub $_ (_);" for qw(is_filehandle is_fileuri is_filename) }
-}
-
+use namespace::clean 0.19 qw<>;
 use Sub::Exporter -setup => {
 	exports => [
 		qw( is_filehandle is_filename is_fileuri ),
@@ -33,6 +23,13 @@ use Sub::Exporter -setup => {
 		default    => [qw( is_filehandle is_filename is_fileuri )],
 		smartmatch => [qw( FileHandle FileName FileUri )],
 	},
+	installer => sub {
+		namespace::clean::->import(
+			-cleanee => $_[0]{into},
+			grep { !ref } @{ $_[1] },
+		);
+		goto \&Sub::Exporter::default_installer;
+	},
 };
 
 use overload qw<>;
@@ -40,12 +37,9 @@ use Scalar::Util qw< blessed openhandle reftype >;
 use Carp qw<croak>;
 use URI::file;
 
-sub _subpt (&;$)
-{
-	my ($code, $proto) = @_;
-	$proto =~ s/_/\$/g if $] < 5.010;
-	no warnings;
-	return &Scalar::Util::set_prototype($code, $proto);
+sub _lu {
+	require lexical::underscore;
+	goto \&lexical::underscore;
 }
 
 sub _ducktype
@@ -65,15 +59,20 @@ sub _build_ducktype
 {
 	my ($class, $name, $arg) = @_;
 	my $methods = $arg->{methods};
-	return _subpt { _ducktype((@_?shift:$_), $methods) } '_';
+	return sub (;$) {
+		@_ = ${+_lu} unless @_;
+		push @_, $methods;
+		goto \&_ducktype;
+	};
 }
 
 my $expected_methods = [
 	qw(close eof fcntl fileno getc getline getlines ioctl read print stat)
 ];
-*is_filehandle = _subpt
+
+sub is_filehandle (;$)
 {
-	my $fh = @_ ? shift : $_;
+	my $fh = @_ ? shift : ${+_lu};
 	
 	return true if openhandle $fh;
 	
@@ -100,16 +99,16 @@ my $expected_methods = [
 	return true if blessed $fh && $fh->DOES('IO::All');
 	
 	return _ducktype $fh, $expected_methods;
-} '_';
+}
 
 sub _oneline ($)
 {
 	!! ( $_[0] !~ /\r?\n|\r/s )
 }
 
-*is_filename = _subpt
+sub is_filename (;$)
 {
-	my $f = @_ ? shift : $_;
+	my $f = @_ ? shift : ${+_lu};
 	return true if blessed $f && $f->DOES('IO::All');
 	return true if blessed $f && $f->DOES('Path::Class::Entity');
 	return ( length "$f" and _oneline "$f" )
@@ -117,26 +116,25 @@ sub _oneline ($)
 	return ( length $f and _oneline $f )
 		if defined $f && !ref $f;
 	return;
-} '_';
+}
 
-*is_fileuri = _subpt
+sub is_fileuri (;$)
 {
-	my $f = @_ ? shift : $_;
+	my $f = @_ ? shift : ${+_lu};
 	return $f if blessed $f && $f->DOES('URI::file');
 	return URI::file->new($f->uri) if blessed $f && $f->DOES('RDF::Trine::Node::Resource');
 	return URI::file->new($f) if $f =~ m{^file://\S+}i;
 	return;
-} '_';
-
+}
 
 sub _build_as_filehandle
 {
 	my ($class, $name, $arg) = @_;
 	my $default_mode = $arg->{mode} || '<';
 	
-	return _subpt
+	return sub (;$$)
 	{
-		my $f = @_ ? shift : $_;
+		my $f = @_ ? shift : ${+_lu};
 		return $f if is_filehandle($f);
 		
 		if (my $uri = is_fileuri($f))
@@ -146,7 +144,7 @@ sub _build_as_filehandle
 		open my $fh, $mode, $f
 			or croak "Cannot open '$f' with mode '$mode': $!, died";
 		return $fh;
-	} '_;$'
+	};
 }
 
 *as_filehandle = __PACKAGE__->_build_as_filehandle('as_filehandle', +{});
@@ -155,7 +153,7 @@ sub _build_as_filehandle
 	package IO::Detect::SmartMatcher;
 	BEGIN {
 		$IO::Detect::SmartMatcher::AUTHORITY = 'cpan:TOBYINK';
-		$IO::Detect::SmartMatcher::VERSION   = '0.100';
+		$IO::Detect::SmartMatcher::VERSION   = '0.101';
 	}
 	use Scalar::Util qw< blessed >;
 	use overload (); no warnings 'overload';  # '~~' unavailable in Perl 5.8
@@ -316,6 +314,19 @@ be plain old confusing.
 Although C<is_filehandle> and its friends support Perl 5.8 and above,
 smart match is only available in Perl 5.10 onwards.
 
+=head2 Use with Scalar::Does
+
+The smart match constants can also be used with L<Scalar::Does>:
+
+	if (does $file, FileHandle)
+	{
+		...;
+	}
+	elsif (does $file, FileName)
+	{
+		...;
+	}
+
 =head2 Precedence
 
 Because there is some overlap/ambiguity between what is a filehandle
@@ -331,7 +342,13 @@ falling back to C<is_filename>.
 		default            { die "$file is not a file!" }
 	}
 
-=head2 Duck Typing
+=head2 Export
+
+Like Scalar::Does, IO::Detect plays some tricks with L<namespace::clean> to
+ensure that any functions it exports to your namespace are cleaned up when
+you're finished with them.
+
+=head3 Duck Typing
 
 In some cases you might be happy to accept something less than a
 complete file handle. In this case you can import a customised
@@ -370,8 +387,8 @@ executable code.
 
 Various other modules that may be of interest, in no particular
 order...
-L<Scalar::Util>,
 L<Scalar::Does>,
+L<Scalar::Util>,
 L<FileHandle>,
 L<IO::Handle>,
 L<IO::Handle::Util>,

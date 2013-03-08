@@ -25,12 +25,14 @@ the same terms as the Perl 5 programming language system itself.
 
 =cut
 
+use strict;
+use warnings;
 use Test::More;
+use Test::Requires "List::MoreUtils";
 
 BEGIN {
-	eval { require List::MoreUtils }
-	and !( List::MoreUtils::_XScompiled() )
-	and plan skip_all => 'pure Perl List::MoreUtils generates warning under -w'
+	plan skip_all => 'pure Perl List::MoreUtils generates warning under -w'
+		unless List::MoreUtils::_XScompiled();
 };
 
 use Test::NoWarnings;

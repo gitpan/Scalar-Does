@@ -48,6 +48,11 @@ Files: inc/Module/Install.pm
 Copyright: Copyright 2002 - 2012 Brian Ingerson, Audrey Tang and Adam Kennedy.
 License: GPL-1.0+ or Artistic-1.0
 
+Files: t/iod-06asfh.t
+ t/iod-13pathtiny.t
+Copyright: This software is copyright (c) 2013 by Toby Inkster.
+License: GPL-1.0+ or Artistic-1.0
+
 Files: inc/unicore/Name.pm
  inc/utf8.pm
 Copyright: 1993-2012, Larry Wall and others
@@ -56,10 +61,6 @@ License: GPL-1.0+ or Artistic-1.0
 Files: inc/Module/Install/TrustMetaYml.pm
  inc/Module/Package/Dist/RDF.pm
 Copyright: This software is copyright (c) 2011-2012 by Toby Inkster.
-License: GPL-1.0+ or Artistic-1.0
-
-Files: t/iod-13pathtiny.t
-Copyright: This software is copyright (c) 2013 by Toby Inkster.
 License: GPL-1.0+ or Artistic-1.0
 
 Files: inc/Module/Install/Makefile.pm

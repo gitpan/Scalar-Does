@@ -20,18 +20,17 @@ the same terms as the Perl 5 programming language system itself.
 =cut
 
 use strict;
+use warnings;
 use Test::More;
-BEGIN {
-	eval("use IO::All 'io'; 1") && ($] >= 5.010)
-	or plan skip_all => "Need IO::All and Perl 5.10 for this test.";
-};
+use Test::Requires "v5.10", "IO::All";
 
+use IO::All ();
 use IO::Detect;
-plan tests => 3;
 
-$_ = io('Makefile.PL');
+$_ = IO::All->new('Makefile.PL');
 
 ok is_filehandle, "is_filehandle";
 ok is_filename, "is_filename";
 ok not(is_fileuri), "is_fileuri";
 
+done_testing;
