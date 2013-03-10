@@ -7,7 +7,7 @@ use if $] < 5.010, 'UNIVERSAL::DOES';
 our %_CONSTANTS;
 BEGIN {
 	$Scalar::Does::AUTHORITY = 'cpan:TOBYINK';
-	$Scalar::Does::VERSION   = '0.101';
+	$Scalar::Does::VERSION   = '0.102';
 	
 	%_CONSTANTS = (
 		BOOLEAN    => q[bool],
@@ -25,7 +25,7 @@ BEGIN {
 BEGIN {
 	package Scalar::Does::RoleChecker;
 	$Scalar::Does::RoleChecker::AUTHORITY = 'cpan:TOBYINK';
-	$Scalar::Does::RoleChecker::VERSION   = '0.101';
+	$Scalar::Does::RoleChecker::VERSION   = '0.102';
 	use overload
 		q[""]    => 'name',
 		q[&{}]   => 'code',
@@ -53,7 +53,7 @@ BEGIN {
 use constant \%_CONSTANTS;
 use Carp             0     qw( confess );
 use namespace::clean 0.19  qw();
-use Scalar::Util     1.20  qw( blessed reftype looks_like_number );
+use Scalar::Util     1.24  qw( blessed reftype looks_like_number );
 
 use Sub::Exporter -setup => {
 	exports => [
