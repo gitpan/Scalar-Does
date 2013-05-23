@@ -2,35 +2,21 @@ package Scalar::Does;
 
 use 5.008;
 use strict;
+use warnings;
 use if $] < 5.010, 'UNIVERSAL::DOES';
 
-our %_CONSTANTS;
-BEGIN {
+METADATA:
+{
 	$Scalar::Does::AUTHORITY = 'cpan:TOBYINK';
-	$Scalar::Does::VERSION   = '0.102';
-	
-	%_CONSTANTS = (
-		BOOLEAN    => q[bool],
-		STRING     => q[""],
-		NUMBER     => q[0+],
-		REGEXP     => q[qr],
-		SMARTMATCH => q[~~],
-		map {; $_ => $_ } qw(
-			SCALAR ARRAY HASH CODE REF GLOB
-			LVALUE FORMAT IO VSTRING
-		)
-	);
+	$Scalar::Does::VERSION   = '0.200';
 }
 
-BEGIN {
+UTILITY_CLASS:
+{
 	package Scalar::Does::RoleChecker;
 	$Scalar::Does::RoleChecker::AUTHORITY = 'cpan:TOBYINK';
-	$Scalar::Does::RoleChecker::VERSION   = '0.102';
-	use overload
-		q[""]    => 'name',
-		q[&{}]   => 'code',
-		fallback => 1,
-	;
+	$Scalar::Does::RoleChecker::VERSION   = '0.200';
+	use base "Type::Tiny";
 	sub new {
 		my $class = shift;
 		my ($name, $coderef);
@@ -41,139 +27,197 @@ BEGIN {
 			if (Scalar::Does::does($p, 'Regexp')){ $coderef = sub { $_[0] =~ $p } }
 			if (not ref $p)                      { $name    = $p }
 		}
-		Carp::confess("Cannot make role without checker coderef or regexp.")
-			unless $coderef;
-		bless { name => $name, code => $coderef } => $class;
+		Carp::confess("Cannot make role without checker coderef or regexp") unless $coderef;
+		$class->SUPER::new(display_name => $name, constraint => $coderef);
 	}
-	sub name  { $_[0]{name} }
-	sub code  { $_[0]{code} }
-	sub check { $_[0]{code}->($_[1]) }
+	sub code { shift->constraint };
 }
 
-use constant \%_CONSTANTS;
-use Carp             0     qw( confess );
-use namespace::clean 0.19  qw();
-use Scalar::Util     1.24  qw( blessed reftype looks_like_number );
-
-use Sub::Exporter -setup => {
-	exports => [
-		qw( does overloads blessed reftype looks_like_number make_role where ),
-		custom => \&_build_custom,
-		keys %_CONSTANTS,
-	],
-	groups  => {
-		default        => [qw( does )],
-		constants      => [qw( -default -only_constants )],
-		only_constants => [keys %_CONSTANTS],
-		make           => [qw( make_role where )],
-	},
-	installer => sub {
-		namespace::clean::->import(
-			-cleanee => $_[0]{into},
-			grep { !ref } @{ $_[1] },
-		);
-		goto \&Sub::Exporter::default_installer;
-	},
-};
-
-sub _lu {
-	require lexical::underscore;
-	goto \&lexical::underscore;
-}
-
-no warnings;
-
-my %ROLES = (
-	SCALAR   => sub { reftype($_) eq 'SCALAR'  or overloads($_, q[${}]) },
-	ARRAY    => sub { reftype($_) eq 'ARRAY'   or overloads($_, q[@{}]) },
-	HASH     => sub { reftype($_) eq 'HASH'    or overloads($_, q[%{}]) },
-	CODE     => sub { reftype($_) eq 'CODE'    or overloads($_, q[&{}]) },
-	REF      => sub { reftype($_) eq 'REF' },
-	GLOB     => sub { reftype($_) eq 'GLOB'    or overloads($_, q[*{}]) },
-	LVALUE   => sub { ref($_) eq 'LVALUE' },
-	FORMAT   => sub { reftype($_) eq 'FORMAT' },
-	IO       => sub { require IO::Detect; IO::Detect::is_filehandle($_) },
-	VSTRING  => sub { reftype($_) eq 'VSTRING' or ref($_) eq 'VSTRING' },
-	Regexp   => sub { reftype($_) eq 'Regexp'  or ref($_) eq 'Regexp'  or overloads($_, q[qr]) },
-	q[bool]  => sub { !blessed($_) or !overload::Overloaded($_) or overloads($_, q[bool]) },
-	q[""]    => sub { !ref($_)     or !overload::Overloaded($_) or overloads($_, q[""]) },
-	q[0+]    => sub { !ref($_)     or !overload::Overloaded($_) or overloads($_, q[0+]) },
-	q[<>]    => sub { require IO::Detect; overloads($_, q[<>]) or IO::Detect::is_filehandle($_) },
-	q[~~]    => sub { overloads($_, q[~~]) or not blessed($_) },
-	q[${}]   => 'SCALAR',
-	q[@{}]   => 'ARRAY',
-	q[%{}]   => 'HASH',
-	q[&{}]   => 'CODE',
-	q[*{}]   => 'GLOB',
-	q[qr]    => 'Regexp',
-);
-
-while (my ($k, $v) = each %ROLES)
-	{ $ROLES{$k} = $ROLES{$v} unless ref $v }
-
-sub overloads ($;$)
+PRIVATE_STUFF:
 {
-	unshift @_, ${+_lu} if @_ == 1;
-	return unless blessed $_[0];
-	goto \&overload::Method;
-}
-
-sub does ($;$)
-{
-	unshift @_, ${+_lu} if @_ == 1;
-	my ($thing, $role) = @_;
+	sub _lu {
+		require lexical::underscore;
+		goto \&lexical::underscore;
+	}
 	
-	if (my $test = $ROLES{$role})
+	use constant MISSING_ROLE_MESSAGE => (
+		"Please supply a '-role' argument when exporting custom functions, died"
+	);
+	
+	use Carp 0 qw( confess );
+	use Types::Standard 0.004 qw( -types );
+}
+
+use namespace::clean 0.19;
+
+DEFINE_CONSTANTS:
+{
+	our %_CONSTANTS = (
+		BOOLEAN    => q[bool],
+		STRING     => q[""],
+		NUMBER     => q[0+],
+		REGEXP     => q[qr],
+		SMARTMATCH => q[~~],
+		map {; $_ => $_ } qw(
+			SCALAR ARRAY HASH CODE REF GLOB
+			LVALUE FORMAT IO VSTRING
+		)
+	);
+	require constant;
+	constant->import(\%_CONSTANTS);
+}
+
+EXPORTER:
+{
+	use base "Exporter::TypeTiny";
+	
+	our %_CONSTANTS;
+	our @EXPORT    = ( "does" );
+	our @EXPORT_OK = (
+		qw( does overloads blessed reftype looks_like_number make_role where custom ),
+		keys(%_CONSTANTS),
+	);
+	our %EXPORT_TAGS = (
+		constants      => [ "does", keys(%_CONSTANTS) ],
+		only_constants => [ keys(%_CONSTANTS) ],
+		make           => [ qw( make_role where ) ],
+	);
+	
+	sub _exporter_expand_sub
 	{
-		local $_ = $thing;
-		return !! $test->($thing);
+		my $class = shift;
+		return custom => $class->_build_custom(@_[0,1]) if $_[0] eq "custom";
+		$class->SUPER::_exporter_expand_sub(@_);
 	}
 	
-	if (blessed $role and $role->can('check'))
+	sub _exporter_validate_opts
 	{
-		return !! $role->check($thing);
-	}
-	
-	if (blessed $thing && $thing->can('DOES'))
-	{
-		return !! 1 if $thing->DOES($role);
-	}
-	elsif (UNIVERSAL::can($thing, 'can') && $thing->can('DOES'))
-	{
-		my $class = $thing;
-		return '0E0' if $class->DOES($role);
-	}
-	
-	return;
-}
-
-use constant MISSING_ROLE_MESSAGE => (
-	"Please supply a '-role' argument when exporting custom functions, died"
-);
-
-sub _build_custom
-{
-	my ($class, $name, $arg) = @_;
-	my $role = $arg->{ -role } or confess MISSING_ROLE_MESSAGE;
-	
-	return sub (;$) {
-		push @_, $role;
-		goto \&does;
+		require B;
+		my $class = shift;
+		$_[0]{exporter} ||= sub {
+			my $into = $_[0]{into};
+			my ($name, $sym) = @{ $_[1] };
+			for (grep ref, $into->can($name))
+			{
+				B::svref_2object($_)->STASH->NAME eq $into
+					and _croak("Refusing to overwrite local sub '$name' with export from $class");
+			}
+			"namespace::clean"->import(-cleanee => $_[0]{into}, $name);
+			no strict qw(refs);
+			no warnings qw(redefine prototype);
+			*{"$into\::$name"} = $sym;
+		}
 	}
 }
 
-sub make_role
+ROLES:
 {
-	return Scalar::Does::RoleChecker::->new(@_);
+	no warnings;
+	
+	my $io = "Type::Tiny"->new(
+		display_name => "IO",
+		constraint   => sub { require IO::Detect; IO::Detect::is_filehandle($_) },
+	);
+	
+	our %_ROLES = (
+		SCALAR   => ( ScalarRef() | Ref->parameterize('SCALAR')  | Overload->parameterize('${}') ),
+		ARRAY    => ( ArrayRef()  | Ref->parameterize('ARRAY')   | Overload->parameterize('@{}') ),
+		HASH     => ( HashRef()   | Ref->parameterize('HASH')    | Overload->parameterize('%{}') ),
+		CODE     => ( CodeRef()   | Ref->parameterize('CODE')    | Overload->parameterize('&{}') ),
+		REF      => ( Ref->parameterize('REF') ),
+		GLOB     => ( GlobRef()   | Ref->parameterize('GLOB')    | Overload->parameterize('*{}') ),
+		LVALUE   => ( Ref->parameterize('LVALUE') ),
+		FORMAT   => ( Ref->parameterize('FORMAT') ),
+		IO       => $io,
+		VSTRING  => ( Ref->parameterize('VSTRING') ),
+		Regexp   => ( RegexpRef() | Ref->parameterize('Regexp')  | Overload->parameterize('qr') ),
+		bool     => ( Value() | Overload->complementary_type | Overload->parameterize('bool') ),
+		q[""]    => ( Value() | Overload->complementary_type | Overload->parameterize('""') ),
+		q[0+]    => ( Value() | Overload->complementary_type | Overload->parameterize('0+') ),
+		q[<>]    => ( Overload->parameterize('<>') | $io ),
+		q[~~]    => ( Overload->parameterize('~~') | Object->complementary_type ),
+		q[${}]   => 'SCALAR',
+		q[@{}]   => 'ARRAY',
+		q[%{}]   => 'HASH',
+		q[&{}]   => 'CODE',
+		q[*{}]   => 'GLOB',
+		q[qr]    => 'Regexp',
+	);
+	
+	while (my ($k, $v) = each %_ROLES) { $_ROLES{$k} = $_ROLES{$v} unless ref $v }
 }
 
-sub where (&)
+PUBLIC_FUNCTIONS:
 {
-	return +{ where => $_[0] };
+	use Scalar::Util 1.24 qw( blessed reftype looks_like_number );
+	
+	sub overloads ($;$)
+	{
+		unshift @_, ${+_lu} if @_ == 1;
+		return unless blessed $_[0];
+		goto \&overload::Method;
+	}
+	
+	sub does ($;$)
+	{
+		unshift @_, ${+_lu} if @_ == 1;
+		my ($thing, $role) = @_;
+		
+		no warnings;
+		our %_ROLES;
+		if (my $test = $_ROLES{$role})
+		{
+			return !! $test->check($thing);
+		}
+		
+		if (blessed $role and $role->can('check'))
+		{
+			return !! $role->check($thing);
+		}
+		
+		if (blessed $thing && $thing->can('DOES'))
+		{
+			return !! 1 if $thing->DOES($role);
+		}
+		elsif (UNIVERSAL::can($thing, 'can') && $thing->can('DOES'))
+		{
+			my $class = $thing;
+			return '0E0' if $class->DOES($role);
+		}
+		
+		return;
+	}
+	
+	sub _build_custom
+	{
+		my ($class, $name, $arg) = @_;
+		my $role = $arg->{ -role } or confess MISSING_ROLE_MESSAGE;
+		
+		return sub (;$) {
+			push @_, $role;
+			goto \&does;
+		}
+	}
+	
+	sub make_role
+	{
+		return "Scalar::Does::RoleChecker"->new(@_);
+	}
+	
+	sub where (&)
+	{
+		return +{ where => $_[0] };
+	}
 }
 
 "it does"
 __END__
+
+=pod
+
+=encoding utf8
+
+=for stopwords vstring qr numifies
 
 =head1 NAME
 
@@ -344,7 +388,7 @@ from L<Moose::Util::TypeConstraints>, so don't worry about conflicts.
 
 =head2 Constants
 
-The following constants may be used for convenience:
+The following constants may be exported for convenience:
 
 =over
 
@@ -382,7 +426,7 @@ The following constants may be used for convenience:
 
 =head2 Export
 
-By default, only C<does> is exported. This module uses L<Sub::Exporter>, so
+By default, only C<does> is exported. This module uses L<Exporter::TypeTiny>, so
 functions can be renamed:
 
   use Scalar::Does does => { -as => 'performs_role' };
@@ -474,7 +518,7 @@ however.
   does( "123", Int );      # true
   does( "123", "Int" );    # false
 
-L<Mouse::Meta::TypeConstraints> and L<MouseX::Types> should be compatible
+L<Mouse::Meta::TypeConstraint>s and L<MouseX::Types> should be compatible
 enough to work as well.
 
 See also:
@@ -482,6 +526,23 @@ L<Moose::Meta::TypeConstraint>,
 L<Moose::Util::TypeConstraints>,
 L<MooseX::Types>,
 L<Scalar::Does::MooseTypes>.
+
+=head2 Relationship to Type::Tiny type constraints
+
+Types built with L<Type::Tiny> and L<Type::Library> can be used exactly as
+Moose type constraint objects above.
+
+  use Types::Standard qw(Int);
+  use Scalar::Does qw(does);
+  
+  does(123, Int);   # true
+
+In fact, L<Type::Tiny> and related libraries are used extensively in the
+internals of Scalar::Does 0.200+.
+
+See also:
+L<Type::Tiny>,
+L<Types::Standard>.
 
 =head2 Relationship to Role::Tiny and Moo roles
 

@@ -154,7 +154,7 @@ DESCRIPTION
         conflicts.
 
   Constants
-    The following constants may be used for convenience:
+    The following constants may be exported for convenience:
 
     "SCALAR"
     "ARRAY"
@@ -173,8 +173,8 @@ DESCRIPTION
     "SMARTMATCH"
 
   Export
-    By default, only "does" is exported. This module uses Sub::Exporter, so
-    functions can be renamed:
+    By default, only "does" is exported. This module uses
+    Exporter::TypeTiny, so functions can be renamed:
 
       use Scalar::Does does => { -as => 'performs_role' };
 
@@ -263,6 +263,20 @@ SEE ALSO
 
     See also: Moose::Meta::TypeConstraint, Moose::Util::TypeConstraints,
     MooseX::Types, Scalar::Does::MooseTypes.
+
+  Relationship to Type::Tiny type constraints
+    Types built with Type::Tiny and Type::Library can be used exactly as
+    Moose type constraint objects above.
+
+      use Types::Standard qw(Int);
+      use Scalar::Does qw(does);
+  
+      does(123, Int);   # true
+
+    In fact, Type::Tiny and related libraries are used extensively in the
+    internals of Scalar::Does 0.200+.
+
+    See also: Type::Tiny, Types::Standard.
 
   Relationship to Role::Tiny and Moo roles
     Roles using Role::Tiny 1.002000 and above provide a "DOES" method, so

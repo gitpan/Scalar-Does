@@ -1,0 +1,290 @@
+@prefix cpan: <http://purl.org/NET/cpan-uri/person/> .
+@prefix cpant: <http://purl.org/NET/cpan-uri/terms#> .
+@prefix dbug: <http://ontologi.es/doap-bugs#> .
+@prefix dcs: <http://ontologi.es/doap-changeset#> .
+@prefix dist: <http://purl.org/NET/cpan-uri/dist/Scalar-Does/> .
+@prefix doap: <http://usefulinc.com/ns/doap#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+_:r1369350886r0 a dcs:Addition ;
+	rdfs:label "Export constants for pre-defined roles." .
+_:r1369350886r1 a dcs:Documentation ;
+	rdfs:label "Better documentation for interaction with Moose roles and type constraints." .
+_:r1369350886r10 a dcs:Addition ;
+	rdfs:label "Scalar::Does::MooseTypes." .
+_:r1369350886r11 a dcs:Documentation ;
+	rdfs:label "Better document interaction with Role::Tiny and Moo." .
+_:r1369350886r12 a dcs:Documentation ;
+	rdfs:label "Correct inaccurate information about Moo type constraints." .
+_:r1369350886r13 a dcs:Packaging ;
+	rdfs:label "Fix failing test case in Perl 5.8." .
+_:r1369350886r14 a dcs:Bugfix ;
+	rdfs:label "Skip test '10underscore.t' on Perl 5.008 as it doesn't support lexical $_." .
+_:r1369350886r15 a dcs:Packaging ;
+	rdfs:label "Requires UNIVERSAL::DOES in Perl < 5.010." .
+_:r1369350886r16 a dcs:Bugfix ;
+	rdfs:label "use if $] < 5.010, 'UNIVERSAL::DOES'." .
+_:r1369350886r17 a dcs:Documentation ;
+	rdfs:label "Add documentation for test suite." .
+_:r1369350886r18 a dcs:Bugfix ;
+	rdfs:label "Attempt to fix some problems CPAN smoke tests are reporting in 09warnings.t." .
+_:r1369350886r19 a dcs:Documentation ;
+	rdfs:label "Copyright 2013." .
+_:r1369350886r2 a dcs:Documentation ;
+	rdfs:label "Document relationship with Object::DOES." .
+_:r1369350886r20 a dcs:Packaging ;
+	rdfs:label "Merge IO-Detect distribution into Scalar-Does." .
+_:r1369350886r21 a dcs:Packaging ;
+	rdfs:label "The IO-Detect-Changes.txt file lists changes to the IO-Detect distribution prior to merge." .
+_:r1369350886r22 a dcs:Update ;
+	rdfs:label "New test case for IO::Detect/Path::Tiny interaction." .
+_:r1369350886r3 a dcs:Documentation ;
+	rdfs:label "Minor improvements." .
+_:r1369350886r4 a dcs:Addition ;
+	rdfs:label "Export looks_like_number." .
+_:r1369350886r5 a dcs:Documentation ;
+	rdfs:label "Clarify that does($thing, '0+') is not the same as looks_like_number." .
+_:r1369350886r6 a dcs:Bugfix ;
+	rdfs:label "Correctly determine Regexp role." .
+_:r1369350886r7 a dcs:Packaging ;
+	rdfs:label "Improved test suite with 100% Devel::Cover coverage." .
+_:r1369350886r8 a dcs:Bugfix ;
+	rdfs:label "Ensure t/99smartmatch.t is skipped properly on Perl < 5.10.1." .
+_:r1369350886r9 a dcs:Addition ;
+	rdfs:label "make_role function for creating anonymous roles." .
+_:r1369350887r23 a dcs:Change ;
+	rdfs:label "use lexical::underscore instead of directly mucking around with PadWalker." .
+_:r1369350887r24 a dcs:Documentation ;
+	rdfs:label "Show how IO::Detect's constants can be used with Scalar::Does's does() function." .
+_:r1369350887r25 a dcs:Change ;
+	rdfs:label "IO::Detect now performs the same namespace::clean trickery as Scalar::Does to fake lexical subs." .
+_:r1369350887r26 a dcs:Change ;
+	rdfs:label "does($class, $overloaded_operation) no longer returns true. does($instance, $overloaded_operation) still works of course!" .
+_:r1369350887r27 a dcs:Change ;
+	rdfs:label "Improve test suite cleanliness; use Test::Requires, etc." .
+_:r1369350887r28 a dcs:Bugfix ;
+	rdfs:label "Scalar::Util version in lib/Scalar/Does.pm and meta/makefile.pret should match." .
+_:r1369350887r29 a dcs:Update ;
+	rdfs:label "Use Type::Tiny and Types::Standard to perform type checking for built-in Scalar::Does roles, and also Scalar::Does::MooseTypes roles." .
+_:r1369350887r30 a dcs:Update ;
+	rdfs:label "Deprecate Scalar::Does::MooseTypes." .
+_:r1369350887r31 a dcs:Update ;
+	rdfs:label "Use Exporter::TypeTiny instead of Sub::Exporter." .
+_:r1369350887r32 a dcs:Documentation ;
+	rdfs:label "Document relationship with Type::Tiny." .
+_:r1369350887r33 a dcs:Packaging ;
+	rdfs:label "Skip tests involving given/when, smart match, and lexical $_ in Perl >= 5.17." .
+_:r1369350887r34 <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#fileName> "lib/Scalar/Does.pm" ;
+	<http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#programmingLanguage> "Perl" ;
+	a <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#FileDataObject>, <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#SourceCode> ;
+	rdfs:label "Scalar::Does" .
+_:r1369350887r35 <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#fileName> "lib/Scalar/Does.pm" ;
+	<http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#programmingLanguage> "Perl" ;
+	a <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#FileDataObject>, <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#SourceCode> ;
+	rdfs:label "Scalar::Does" .
+_:r1369350887r36 <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#fileName> "lib/Scalar/Does.pm" ;
+	<http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#programmingLanguage> "Perl" ;
+	a <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#FileDataObject>, <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#SourceCode> ;
+	rdfs:label "Scalar::Does" .
+_:rb8ECF6FCCC3FE11E29DD663675778BE17r0 dcs:item _:r1369350886r0, _:r1369350886r1, _:r1369350886r2, _:r1369350886r3, _:r1369350886r4, _:r1369350886r5, _:r1369350886r6, _:r1369350886r7 .
+_:rb8ECF6FCCC3FE11E29DD663675778BE17r1 dcs:item _:r1369350886r8 .
+_:rb8ECF6FCCC3FE11E29DD663675778BE17r10 a dcs:Documentation ;
+	rdfs:label "Revise documentation about Role::Tiny/Moo::Role's lack of DOES; it is now implemented." .
+_:rb8ECF6FCCC3FE11E29DD663675778BE17r11 dcs:item _:r1369350886r14, _:r1369350886r15, _:r1369350886r16 .
+_:rb8ECF6FCCC3FE11E29DD663675778BE17r12 dcs:item _:r1369350886r17, [
+		dcs:fixes <http://purl.org/NET/cpan-uri/rt/ticket/81622> ;
+		dcs:thanks cpan:dami ;
+		a dcs:Update ;
+		rdfs:label "Perl 5.17 has changed the behaviour of UNIVERSAL::can($pkg, 'can'), so that it is no longer useful for detecting whether a package is loaded. Changed Scalar::Does::MooseLike to avoid this idiom."
+	] .
+_:rb8ECF6FCCC3FE11E29DD663675778BE17r14 dcs:item _:r1369350886r18 .
+_:rb8ECF6FCCC3FE11E29DD663675778BE17r15 dcs:item _:r1369350886r19 .
+_:rb8ECF6FCCC3FE11E29DD663675778BE17r16 dcs:item _:r1369350886r20, _:r1369350886r21 ;
+	dcs:versus dist:v_0-012 .
+_:rb8ECF6FCCC3FE11E29DD663675778BE17r17 dcs:item _:r1369350886r22 ;
+	dcs:versus <http://purl.org/NET/cpan-uri/dist/IO-Detect/v_0-005> .
+_:rb8ECF6FCCC3FE11E29DD663675778BE17r18 dcs:item _:r1369350887r23, _:r1369350887r24, _:r1369350887r25, _:r1369350887r26, _:r1369350887r27 .
+_:rb8ECF6FCCC3FE11E29DD663675778BE17r19 dcs:item _:r1369350887r28 .
+_:rb8ECF6FCCC3FE11E29DD663675778BE17r2 dcs:item _:r1369350886r10, _:r1369350886r11, _:r1369350886r9 .
+_:rb8ECF6FCCC3FE11E29DD663675778BE17r20 dcs:item _:r1369350887r29, _:r1369350887r30, _:r1369350887r31, _:r1369350887r32, _:r1369350887r33 .
+_:rb8ECF6FCCC3FE11E29DD663675778BE17r21 doap:browse <https://github.com/tobyink/p5-scalar-does> ;
+	a doap:GitRepository .
+_:rb8ECF6FCCC3FE11E29DD663675778BE17r3 dcs:item _:r1369350886r12 .
+_:rb8ECF6FCCC3FE11E29DD663675778BE17r4 dcs:item _:r1369350886r13 .
+_:rb8ECF6FCCC3FE11E29DD663675778BE17r5 dcs:item [
+		dcs:fixes <http://purl.org/NET/cpan-uri/rt/ticket/80121> ;
+		dcs:thanks cpan:dami ;
+		a dcs:Bugfix ;
+		rdfs:label "Fix warning on does(undef, $role) when $^W is true."
+	] .
+_:rb8ECF6FCCC3FE11E29DD663675778BE17r7 dcs:item _:rb8ECF6FCCC3FE11E29DD663675778BE17r10, [
+		dcs:thanks cpan:dami ;
+		a dcs:Change ;
+		rdfs:comment "I've gone through the reverse dependencies on metacpan, and don't think anything should break." ;
+		rdfs:label "INCOMPATIBLE CHANGE: single-argument does($role) and overloads($role) now check $_." ;
+		rdfs:seeAlso <http://purl.org/NET/cpan-uri/rt/ticket/80434>
+	], [
+		a dcs:Documentation, dcs:Removal ;
+		rdfs:label "Remove references to Object-DOES in documentation."
+	] .
+<http://dev.perl.org/licenses/> <http://purl.org/dc/terms/title> "the same terms as the perl 5 programming language system itself" .
+<http://purl.org/NET/cpan-uri/dist/IO-Detect/project> <http://purl.org/dc/terms/contributor> cpan:tobyink ;
+	doap:release <http://purl.org/NET/cpan-uri/dist/IO-Detect/v_0-005> .
+<http://purl.org/NET/cpan-uri/dist/IO-Detect/v_0-005> dcs:released-by cpan:tobyink ;
+	<http://purl.org/dc/terms/identifier> "IO-Detect-0.005"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	doap:file-release <http://backpan.cpan.org/authors/id/T/TO/TOBYINK/IO-Detect-0.005.tar.gz> ;
+	doap:revision "0.005"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a doap:Version .
+dist:project cpant:perl_version_from _:r1369350887r34 ;
+	cpant:readme_from _:r1369350887r36 ;
+	cpant:requires "Scalar::Util 1.24"^^cpant:dsWithVersion, "Type::Tiny 0.004"^^cpant:dsWithVersion, "URI::file"^^cpant:dsWithoutVersion, "lexical::underscore"^^cpant:dsWithoutVersion, "namespace::clean 0.19"^^cpant:dsWithVersion ;
+	cpant:test_requires "Test::NoWarnings 0"^^cpant:dsWithVersion, "Test::Requires"^^cpant:dsWithoutVersion, "URI"^^cpant:dsWithoutVersion ;
+	cpant:version_from _:r1369350887r35 ;
+	<http://purl.org/dc/terms/contributor> cpan:tobyink ;
+	doap:bug-database <http://rt.cpan.org/Dist/Display.html?Queue=Scalar-Does> ;
+	doap:created "2012-08-01"^^<http://www.w3.org/2001/XMLSchema#date> ;
+	doap:developer cpan:tobyink ;
+	doap:download-page <https://metacpan.org/release/Scalar-Does> ;
+	doap:homepage <https://metacpan.org/release/Scalar-Does> ;
+	doap:license <http://dev.perl.org/licenses/> ;
+	doap:maintainer cpan:tobyink ;
+	doap:name "Scalar-Does" ;
+	doap:programming-language "Perl" ;
+	doap:release dist:v_0-001, dist:v_0-002, dist:v_0-003, dist:v_0-004, dist:v_0-005, dist:v_0-006, dist:v_0-007, dist:v_0-008, dist:v_0-009, dist:v_0-010, dist:v_0-011_01, dist:v_0-012, dist:v_0-100, dist:v_0-101, dist:v_0-102, dist:v_0-200 ;
+	doap:repository _:rb8ECF6FCCC3FE11E29DD663675778BE17r21 ;
+	doap:shortdesc "like ref() but useful" ;
+	a doap:Project .
+dist:v_0-001 dcs:released-by cpan:tobyink ;
+	<http://purl.org/dc/terms/identifier> "Scalar-Does-0.001"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	<http://purl.org/dc/terms/issued> "2012-09-02"^^<http://www.w3.org/2001/XMLSchema#date> ;
+	doap:file-release <http://backpan.cpan.org/authors/id/T/TO/TOBYINK/Scalar-Does-0.001.tar.gz> ;
+	doap:revision "0.001"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a doap:Version ;
+	rdfs:label "Initial release" .
+dist:v_0-002 dcs:changeset _:rb8ECF6FCCC3FE11E29DD663675778BE17r0 ;
+	dcs:released-by cpan:tobyink ;
+	<http://purl.org/dc/terms/identifier> "Scalar-Does-0.002"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	<http://purl.org/dc/terms/issued> "2012-09-19"^^<http://www.w3.org/2001/XMLSchema#date> ;
+	doap:file-release <http://backpan.cpan.org/authors/id/T/TO/TOBYINK/Scalar-Does-0.002.tar.gz> ;
+	doap:revision "0.002"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a doap:Version .
+dist:v_0-003 dcs:changeset _:rb8ECF6FCCC3FE11E29DD663675778BE17r1 ;
+	dcs:released-by cpan:tobyink ;
+	<http://purl.org/dc/terms/identifier> "Scalar-Does-0.003"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	<http://purl.org/dc/terms/issued> "2012-09-19"^^<http://www.w3.org/2001/XMLSchema#date> ;
+	doap:file-release <http://backpan.cpan.org/authors/id/T/TO/TOBYINK/Scalar-Does-0.003.tar.gz> ;
+	doap:revision "0.003"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a doap:Version .
+dist:v_0-004 dcs:changeset _:rb8ECF6FCCC3FE11E29DD663675778BE17r2 ;
+	dcs:released-by cpan:tobyink ;
+	<http://purl.org/dc/terms/identifier> "Scalar-Does-0.004"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	<http://purl.org/dc/terms/issued> "2012-10-03"^^<http://www.w3.org/2001/XMLSchema#date> ;
+	doap:file-release <http://backpan.cpan.org/authors/id/T/TO/TOBYINK/Scalar-Does-0.004.tar.gz> ;
+	doap:revision "0.004"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a doap:Version .
+dist:v_0-005 dcs:changeset _:rb8ECF6FCCC3FE11E29DD663675778BE17r3 ;
+	dcs:released-by cpan:tobyink ;
+	<http://purl.org/dc/terms/identifier> "Scalar-Does-0.005"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	<http://purl.org/dc/terms/issued> "2012-10-05"^^<http://www.w3.org/2001/XMLSchema#date> ;
+	doap:file-release <http://backpan.cpan.org/authors/id/T/TO/TOBYINK/Scalar-Does-0.005.tar.gz> ;
+	doap:revision "0.005"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a doap:Version .
+dist:v_0-006 dcs:changeset _:rb8ECF6FCCC3FE11E29DD663675778BE17r4 ;
+	dcs:released-by cpan:tobyink ;
+	<http://purl.org/dc/terms/identifier> "Scalar-Does-0.006"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	<http://purl.org/dc/terms/issued> "2012-10-07"^^<http://www.w3.org/2001/XMLSchema#date> ;
+	doap:file-release <http://backpan.cpan.org/authors/id/T/TO/TOBYINK/Scalar-Does-0.006.tar.gz> ;
+	doap:revision "0.006"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a doap:Version .
+dist:v_0-007 dcs:changeset _:rb8ECF6FCCC3FE11E29DD663675778BE17r5 ;
+	dcs:released-by cpan:tobyink ;
+	<http://purl.org/dc/terms/identifier> "Scalar-Does-0.007"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	<http://purl.org/dc/terms/issued> "2012-10-23"^^<http://www.w3.org/2001/XMLSchema#date> ;
+	doap:file-release <http://backpan.cpan.org/authors/id/T/TO/TOBYINK/Scalar-Does-0.007.tar.gz> ;
+	doap:revision "0.007"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a doap:Version ;
+	rdfs:label "Skyfall" .
+dist:v_0-008 dcs:changeset _:rb8ECF6FCCC3FE11E29DD663675778BE17r7 ;
+	dcs:released-by cpan:tobyink ;
+	<http://purl.org/dc/terms/identifier> "Scalar-Does-0.008"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	<http://purl.org/dc/terms/issued> "2012-10-27"^^<http://www.w3.org/2001/XMLSchema#date> ;
+	doap:file-release <http://backpan.cpan.org/authors/id/T/TO/TOBYINK/Scalar-Does-0.008.tar.gz> ;
+	doap:revision "0.008"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a doap:Version .
+dist:v_0-009 dcs:changeset _:rb8ECF6FCCC3FE11E29DD663675778BE17r11 ;
+	dcs:released-by cpan:tobyink ;
+	<http://purl.org/dc/terms/identifier> "Scalar-Does-0.009"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	<http://purl.org/dc/terms/issued> "2012-11-05"^^<http://www.w3.org/2001/XMLSchema#date> ;
+	doap:file-release <http://backpan.cpan.org/authors/id/T/TO/TOBYINK/Scalar-Does-0.009.tar.gz> ;
+	doap:revision "0.009"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a doap:Version ;
+	rdfs:label "Gunpowder, treason and plot" .
+dist:v_0-010 dcs:changeset _:rb8ECF6FCCC3FE11E29DD663675778BE17r12 ;
+	dcs:released-by cpan:tobyink ;
+	<http://purl.org/dc/terms/identifier> "Scalar-Does-0.010"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	<http://purl.org/dc/terms/issued> "2012-12-05"^^<http://www.w3.org/2001/XMLSchema#date> ;
+	doap:file-release <http://backpan.cpan.org/authors/id/T/TO/TOBYINK/Scalar-Does-0.010.tar.gz> ;
+	doap:revision "0.010"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a doap:Version .
+dist:v_0-011_01 dcs:changeset _:rb8ECF6FCCC3FE11E29DD663675778BE17r14 ;
+	dcs:released-by cpan:tobyink ;
+	<http://purl.org/dc/terms/identifier> "Scalar-Does-0.011_01"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	<http://purl.org/dc/terms/issued> "2012-12-15"^^<http://www.w3.org/2001/XMLSchema#date> ;
+	doap:file-release <http://backpan.cpan.org/authors/id/T/TO/TOBYINK/Scalar-Does-0.011_01.tar.gz> ;
+	doap:revision "0.011_01"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a cpant:DeveloperRelease, doap:Version .
+dist:v_0-012 dcs:changeset _:rb8ECF6FCCC3FE11E29DD663675778BE17r15 ;
+	dcs:released-by cpan:tobyink ;
+	<http://purl.org/dc/terms/identifier> "Scalar-Does-0.012"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	<http://purl.org/dc/terms/issued> "2013-01-11"^^<http://www.w3.org/2001/XMLSchema#date> ;
+	doap:file-release <http://backpan.cpan.org/authors/id/T/TO/TOBYINK/Scalar-Does-0.012.tar.gz> ;
+	doap:revision "0.012"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a doap:Version ;
+	rdfs:comment "No functional changes since 0.011_01." .
+dist:v_0-100 dcs:changeset _:rb8ECF6FCCC3FE11E29DD663675778BE17r16, _:rb8ECF6FCCC3FE11E29DD663675778BE17r17 ;
+	dcs:released-by cpan:tobyink ;
+	<http://purl.org/dc/terms/identifier> "Scalar-Does-0.100"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	<http://purl.org/dc/terms/issued> "2013-03-07"^^<http://www.w3.org/2001/XMLSchema#date> ;
+	doap:file-release <http://backpan.cpan.org/authors/id/T/TO/TOBYINK/Scalar-Does-0.100.tar.gz> ;
+	doap:revision "0.100"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a doap:Version .
+dist:v_0-101 dcs:changeset _:rb8ECF6FCCC3FE11E29DD663675778BE17r18 ;
+	dcs:released-by cpan:tobyink ;
+	<http://purl.org/dc/terms/identifier> "Scalar-Does-0.101"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	<http://purl.org/dc/terms/issued> "2013-03-08"^^<http://www.w3.org/2001/XMLSchema#date> ;
+	doap:file-release <http://backpan.cpan.org/authors/id/T/TO/TOBYINK/Scalar-Does-0.101.tar.gz> ;
+	doap:revision "0.101"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a doap:Version .
+dist:v_0-102 dcs:changeset _:rb8ECF6FCCC3FE11E29DD663675778BE17r19 ;
+	dcs:released-by cpan:tobyink ;
+	<http://purl.org/dc/terms/identifier> "Scalar-Does-0.102"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	<http://purl.org/dc/terms/issued> "2013-03-10"^^<http://www.w3.org/2001/XMLSchema#date> ;
+	doap:file-release <http://backpan.cpan.org/authors/id/T/TO/TOBYINK/Scalar-Does-0.102.tar.gz> ;
+	doap:revision "0.102"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a doap:Version .
+dist:v_0-200 dcs:changeset _:rb8ECF6FCCC3FE11E29DD663675778BE17r20 ;
+	dcs:released-by cpan:tobyink ;
+	<http://purl.org/dc/terms/identifier> "Scalar-Does-0.200"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	<http://purl.org/dc/terms/issued> "2013-05-24"^^<http://www.w3.org/2001/XMLSchema#date> ;
+	doap:file-release <http://backpan.cpan.org/authors/id/T/TO/TOBYINK/Scalar-Does-0.200.tar.gz> ;
+	doap:revision "0.200"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	a doap:Version .
+cpan:dami a foaf:Person ;
+	foaf:nick "DAMI" ;
+	foaf:page <https://metacpan.org/author/DAMI> .
+cpan:tobyink a foaf:Person ;
+	foaf:mbox <mailto:tobyink@cpan.org> ;
+	foaf:name "Toby Inkster" ;
+	foaf:nick "TOBYINK" ;
+	foaf:page <https://metacpan.org/author/TOBYINK> .
+<http://purl.org/NET/cpan-uri/rt/ticket/80121> dbug:id "80121"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	dbug:page <https://rt.cpan.org/Ticket/Display.html?id=80121> ;
+	a dbug:Issue .
+<http://purl.org/NET/cpan-uri/rt/ticket/80434> dbug:id "80434"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	dbug:page <https://rt.cpan.org/Ticket/Display.html?id=80434> ;
+	a dbug:Issue .
+<http://purl.org/NET/cpan-uri/rt/ticket/81622> dbug:id "81622"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	dbug:page <https://rt.cpan.org/Ticket/Display.html?id=81622> ;
+	a dbug:Issue .

@@ -26,7 +26,7 @@ no_index:
     - xt
 requires:
   Scalar::Util: 1.24
-  Sub::Exporter: 0
+  Type::Tiny: 0.004
   URI::file: 0
   lexical::underscore: 0
   namespace::clean: 0.19
@@ -35,5 +35,5 @@ resources:
   bugtracker: http://rt.cpan.org/Dist/Display.html?Queue=Scalar-Does
   homepage: https://metacpan.org/release/Scalar-Does
   license: http://dev.perl.org/licenses/
-  repository: https://bitbucket.org/tobyink/p5-scalar-does
-version: 0.102
+  repository: https://github.com/tobyink/p5-scalar-does
+version: 0.200

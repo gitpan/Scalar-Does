@@ -8,29 +8,53 @@ use if $] < 5.010, 'UNIVERSAL::DOES';
 
 BEGIN {
 	$IO::Detect::AUTHORITY = 'cpan:TOBYINK';
-	$IO::Detect::VERSION   = '0.102';
+	$IO::Detect::VERSION   = '0.200';
 }
 
-use namespace::clean 0.19 qw<>;
-use Sub::Exporter -setup => {
-	exports => [
+use namespace::clean 0.19;
+
+EXPORTER:
+{
+	use base "Exporter::TypeTiny";
+	
+	our %_CONSTANTS;
+	our @EXPORT    = qw( is_filehandle is_filename is_fileuri );
+	our @EXPORT_OK = (
 		qw( is_filehandle is_filename is_fileuri ),
 		qw( FileHandle FileName FileUri ),
-		ducktype      => \&_build_ducktype,
-		as_filehandle => \&_build_as_filehandle,
-	],
-	groups => {
-		default    => [qw( is_filehandle is_filename is_fileuri )],
+		qw( ducktype as_filehandle ),
+	);
+	our %EXPORT_TAGS = (
 		smartmatch => [qw( FileHandle FileName FileUri )],
-	},
-	installer => sub {
-		namespace::clean::->import(
-			-cleanee => $_[0]{into},
-			grep { !ref } @{ $_[1] },
-		);
-		goto \&Sub::Exporter::default_installer;
-	},
-};
+	);
+	
+	sub _exporter_expand_sub
+	{
+		my $class = shift;
+		return ducktype      => $class->_build_ducktype(@_[0,1])      if $_[0] eq "ducktype";
+		return as_filehandle => $class->_build_as_filehandle(@_[0,1]) if $_[0] eq "as_filehandle";
+		$class->SUPER::_exporter_expand_sub(@_);
+	}
+	
+	sub _exporter_validate_opts
+	{
+		require B;
+		my $class = shift;
+		$_[0]{exporter} ||= sub {
+			my $into = $_[0]{into};
+			my ($name, $sym) = @{ $_[1] };
+			for (grep ref, $into->can($name))
+			{
+				B::svref_2object($_)->STASH->NAME eq $into
+					and _croak("Refusing to overwrite local sub '$name' with export from $class");
+			}
+			"namespace::clean"->import(-cleanee => $_[0]{into}, $name);
+			no strict qw(refs);
+			no warnings qw(redefine prototype);
+			*{"$into\::$name"} = $sym;
+		}
+	}
+}
 
 use overload qw<>;
 use Scalar::Util qw< blessed openhandle reftype >;
@@ -153,7 +177,7 @@ sub _build_as_filehandle
 	package IO::Detect::SmartMatcher;
 	BEGIN {
 		$IO::Detect::SmartMatcher::AUTHORITY = 'cpan:TOBYINK';
-		$IO::Detect::SmartMatcher::VERSION   = '0.102';
+		$IO::Detect::SmartMatcher::VERSION   = '0.200';
 	}
 	use Scalar::Util qw< blessed >;
 	use overload (); no warnings 'overload';  # '~~' unavailable in Perl 5.8
@@ -191,7 +215,11 @@ true;
 
 __END__
 
+=pod
+
 =encoding utf8
+
+=for stopwords frickin' filehandliness
 
 =head1 NAME
 
@@ -308,7 +336,7 @@ They can be used like this:
 
 Note that there does exist a L<FileHandle> package in Perl core. This
 module attempts to do the right thing so that C<< FileHandle->new >>
-still works, but there are conveivably places this could go wrong, or
+still works, but there are conceivably places this could go wrong, or
 be plain old confusing.
 
 Although C<is_filehandle> and its friends support Perl 5.8 and above,
