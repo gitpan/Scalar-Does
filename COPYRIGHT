@@ -1,9 +1,10 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: Scalar-Does
-Upstream-Contact: Toby Inkster <tobyink@cpan.org>
+Upstream-Contact: Toby Inkster (TOBYINK) <tobyink@cpan.org>
 Source: https://metacpan.org/release/Scalar-Does
 
-Files: lib/IO/Detect.pm
+Files: README
+ lib/IO/Detect.pm
  lib/Scalar/Does.pm
  lib/Scalar/Does/MooseTypes.pm
  t/01basic.t
@@ -27,59 +28,34 @@ Copyright: This software is copyright (c) 2012-2013 by Toby Inkster.
 License: GPL-1.0+ or Artistic-1.0
 
 Files: CONTRIBUTING
- CREDITS
- Changes
+ INSTALL
  IO-Detect-Changes.txt
  LICENSE
- MANIFEST.SKIP
- META.ttl
  Makefile.PL
  NEWS
- README
  TODO
- meta/changes.pret
- meta/doap.pret
- meta/makefile.pret
- t/iod-02filehandles.t
 Copyright: Unknown
 License: Unknown
 
-Files: inc/Module/Install.pm
- inc/Module/Install/Include.pm
- inc/Module/Install/Metadata.pm
-Copyright: Copyright 2002 - 2012 Brian Ingerson, Audrey Tang and Adam Kennedy.
+Files: Changes
+ META.json
+ META.yml
+ dist.ini
+ doap.ttl
+ t/iod-02filehandles.t
+Copyright: Copyright 2013 Toby Inkster.
 License: GPL-1.0+ or Artistic-1.0
 
-Files: inc/Module/Install/TrustMetaYml.pm
- inc/Module/Package/Dist/RDF.pm
-Copyright: This software is copyright (c) 2011-2012 by Toby Inkster.
-License: GPL-1.0+ or Artistic-1.0
+Files: COPYRIGHT
+ CREDITS
+ SIGNATURE
+Copyright: None
+License: public-domain
 
 Files: t/iod-06asfh.t
  t/iod-13pathtiny.t
 Copyright: This software is copyright (c) 2013 by Toby Inkster.
 License: GPL-1.0+ or Artistic-1.0
-
-Files: inc/Module/Install/Makefile.pm
-Copyright: Copyright 2002, 2003, 2004 Audrey Tang and Brian Ingerson.
-License: GPL-1.0+ or Artistic-1.0
-
-Files: inc/Module/Install/Package.pm
-Copyright: Copyright (c) 2011. Ingy doet Net.
-License: GPL-1.0+ or Artistic-1.0
-
-Files: inc/Module/Install/Base.pm
-Copyright: Copyright 2003, 2004 by Audrey Tang <autrijus@autrijus.org>.
-License: GPL-1.0+ or Artistic-1.0
-
-Files: inc/YAML/Tiny.pm
-Copyright: Copyright 2006 - 2012 Adam Kennedy.
-License: GPL-1.0+ or Artistic-1.0
-
-Files: COPYRIGHT
-Copyright: None
-License: public-domain
-Comment: This file! Automatically generated.
 
 License: Artistic-1.0
  This software is Copyright (c) 2013 by the copyright holder(s).
@@ -94,4 +70,3 @@ License: GPL-1.0
  This is free software, licensed under:
  
    The GNU General Public License, Version 1, February 1989
-

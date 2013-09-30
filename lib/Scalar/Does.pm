@@ -8,14 +8,14 @@ use if $] < 5.010, 'UNIVERSAL::DOES';
 METADATA:
 {
 	$Scalar::Does::AUTHORITY = 'cpan:TOBYINK';
-	$Scalar::Does::VERSION   = '0.200';
+	$Scalar::Does::VERSION   = '0.201';
 }
 
 UTILITY_CLASS:
 {
 	package Scalar::Does::RoleChecker;
 	$Scalar::Does::RoleChecker::AUTHORITY = 'cpan:TOBYINK';
-	$Scalar::Does::RoleChecker::VERSION   = '0.200';
+	$Scalar::Does::RoleChecker::VERSION   = '0.201';
 	use base "Type::Tiny";
 	sub new {
 		my $class = shift;
@@ -69,7 +69,7 @@ DEFINE_CONSTANTS:
 
 EXPORTER:
 {
-	use base "Exporter::TypeTiny";
+	use base "Exporter::Tiny";
 	
 	our %_CONSTANTS;
 	our @EXPORT    = ( "does" );
@@ -82,13 +82,6 @@ EXPORTER:
 		only_constants => [ keys(%_CONSTANTS) ],
 		make           => [ qw( make_role where ) ],
 	);
-	
-	sub _exporter_expand_sub
-	{
-		my $class = shift;
-		return custom => $class->_build_custom(@_[0,1]) if $_[0] eq "custom";
-		$class->SUPER::_exporter_expand_sub(@_);
-	}
 	
 	sub _exporter_validate_opts
 	{
@@ -188,7 +181,7 @@ PUBLIC_FUNCTIONS:
 		return;
 	}
 	
-	sub _build_custom
+	sub _generate_custom
 	{
 		my ($class, $name, $arg) = @_;
 		my $role = $arg->{ -role } or confess MISSING_ROLE_MESSAGE;
@@ -426,7 +419,7 @@ The following constants may be exported for convenience:
 
 =head2 Export
 
-By default, only C<does> is exported. This module uses L<Exporter::TypeTiny>, so
+By default, only C<does> is exported. This module uses L<Exporter::Tiny>, so
 functions can be renamed:
 
   use Scalar::Does does => { -as => 'performs_role' };

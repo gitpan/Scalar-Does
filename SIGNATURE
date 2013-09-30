@@ -15,41 +15,24 @@ not run its Makefile.PL or Build.PL.
 Hash: SHA1
 
 SHA1 294505f858f11dd062e9916e3f50d88210a9ef54 CONTRIBUTING
-SHA1 691b06e91a861e0055922bf0cf94e37e64a4bf89 COPYRIGHT
-SHA1 164a6dce1ba50bb31ca0e51e8ee9feb7e47aabf9 CREDITS
-SHA1 570e7f562788728ebb825e10aa18156689b1c24e Changes
+SHA1 72721dc6fdb13494ca62f965228fa6acb6e4ecb3 COPYRIGHT
+SHA1 554ab47f896c23ae5b3dcd206c0efcdffa3e430b CREDITS
+SHA1 00df24258e72334c23584b02417ef57c6c7e43ea Changes
+SHA1 b34513aeed923d3e7227421ddeb76fb5d944ffa2 INSTALL
 SHA1 f596e25feab3c59ca095da6b8864876a623bb953 IO-Detect-Changes.txt
-SHA1 937d452c5c4069f4cda9ffaf45a33f1eb5f060e8 LICENSE
-SHA1 e6e4d25a00b2998d83b47321d837d6e07ca65dcb MANIFEST
-SHA1 bda9e800db5a8af8e8e54359afd0077029425b7b META.ttl
-SHA1 412ea9755c9af41807e0efe63394450b7405ebe7 META.yml
-SHA1 d970fbc25f7149da00cf72b999d8b9db800f8c97 Makefile.PL
+SHA1 ec5a7b4f3023f03ebf821b57690758f7e6f3ae2a LICENSE
+SHA1 3a1d363224835b40a6b3e470ad3a8cac4a1542c0 MANIFEST
+SHA1 ba44ccfd49f0066cf65069308c4c1db33dd3cc30 META.json
+SHA1 2b132b4d0f47cc78380de64c3c8b8a3576e6acb5 META.yml
+SHA1 fc9913ccd985d83e3a0b32ff7f0b6938fffffa7d Makefile.PL
 SHA1 4dc2ac6d2ecfdd04f010a8c3ae257819487acf0a NEWS
-SHA1 4f9ded316ca9eb73f01ffd20542c85698ad9052b README
+SHA1 6c092e887cc55abbd81804ef6de5b0b46b0d47fb README
 SHA1 2b923a21dec40d781654d7549de880213c28ac6b TODO
-SHA1 06c410f05488c1612ed66b06d3a86b2580581e4a inc/Module/AutoInstall.pm
-SHA1 8a924add836b60fb23b25c8506d45945e02f42f4 inc/Module/Install.pm
-SHA1 61ab1dd37e33ddbe155907ce51df8a3e56ac8bbf inc/Module/Install/AutoInstall.pm
-SHA1 c04f94f91fa97b9f8cfb5a36071098ab0e6c78e3 inc/Module/Install/AutoManifest.pm
-SHA1 2d0fad3bf255f8c1e7e1e34eafccc4f595603ddc inc/Module/Install/Base.pm
-SHA1 f0e01fff7d73cd145fbf22331579918d4628ddb0 inc/Module/Install/Can.pm
-SHA1 7328966e4fda0c8451a6d3850704da0b84ac1540 inc/Module/Install/Fetch.pm
-SHA1 66d3d335a03492583a3be121a7d888f63f08412c inc/Module/Install/Include.pm
-SHA1 b62ca5e2d58fa66766ccf4d64574f9e1a2250b34 inc/Module/Install/Makefile.pm
-SHA1 1aa925be410bb3bfcd84a16985921f66073cc1d2 inc/Module/Install/Metadata.pm
-SHA1 3b9281ddf7dd6d6f5de0a9642c69333023193c80 inc/Module/Install/Package.pm
-SHA1 41f76ff6b39368a65da86377e43b34bacc2fb0eb inc/Module/Install/TrustMetaYml.pm
-SHA1 e4196994fa75e98bdfa2be0bdeeffef66de88171 inc/Module/Install/Win32.pm
-SHA1 c3a6d0d5b84feb3280622e9599e86247d58b0d18 inc/Module/Install/WriteAll.pm
-SHA1 26d58a041cd6b3d21db98b32e8fd1841aae21204 inc/Module/Package.pm
-SHA1 5a2f84a7a82eee0d1e5ed3628fe503a608efc10f inc/Module/Package/Dist/RDF.pm
-SHA1 feb933cefe2e3762e8322bd6071a2499f3440da1 inc/YAML/Tiny.pm
-SHA1 4f34d5e42140f1d52db629848c690353da665cca lib/IO/Detect.pm
-SHA1 65328197e9085ab412d290046b23a032f56d8a38 lib/Scalar/Does.pm
-SHA1 beeb9baafccc3df91a1c3ede25eabc106544297c lib/Scalar/Does/MooseTypes.pm
-SHA1 2a24d64f738a2856719cf00219ff437ad258cc4e meta/changes.pret
-SHA1 635b2d28f6e525f136c9883af7744f29dc030e3e meta/doap.pret
-SHA1 ebce16bf3b49a188a48dd5fa5ff5676a5d93e55f meta/makefile.pret
+SHA1 8ba37a05ff536406f270324bbdb5e032c39acba4 dist.ini
+SHA1 764bc639a0f8029d9b60b6fd8f63ae3af7c2ff8c doap.ttl
+SHA1 e680092a967eaadc0887704d637bf3b39a56e110 lib/IO/Detect.pm
+SHA1 fb3577f6e096f903c655d7bfe0abbb56a72f4de8 lib/Scalar/Does.pm
+SHA1 329612813c78e3ead95b2a81e6f34aadd43a7847 lib/Scalar/Does/MooseTypes.pm
 SHA1 48fd91bf2832d45681f14a8add5308fb7580b69b t/01basic.t
 SHA1 43337df64c18fc3f5b4471de126f48aa4b4cda4e t/02does.t
 SHA1 9f9f3746c99c7ab89e152eafdd23cb2fca7ecb9c t/03moosey.t
@@ -73,7 +56,7 @@ SHA1 0452c81e9ab8cc8dfcf6e58343a42e65956fbd50 t/iod-13pathtiny.t
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.12 (GNU/Linux)
 
-iEYEARECAAYFAlGeoxEACgkQzr+BKGoqfTn+kQCgsmgz+qASVb3+vn1Yb5fDgQ7j
-+mMAn2tsD2m/aVvKu6Kf5+meko022fDJ
-=vdwA
+iEYEARECAAYFAlJJ9HUACgkQzr+BKGoqfTmxswCgndAFpONE6HMxBhJKoXe84RQG
+VIEAoIcscwvTbV+M79kFtbwFJKdFxUBy
+=Zqds
 -----END PGP SIGNATURE-----

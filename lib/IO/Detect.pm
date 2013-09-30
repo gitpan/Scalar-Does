@@ -8,14 +8,14 @@ use if $] < 5.010, 'UNIVERSAL::DOES';
 
 BEGIN {
 	$IO::Detect::AUTHORITY = 'cpan:TOBYINK';
-	$IO::Detect::VERSION   = '0.200';
+	$IO::Detect::VERSION   = '0.201';
 }
 
 use namespace::clean 0.19;
 
 EXPORTER:
 {
-	use base "Exporter::TypeTiny";
+	use base "Exporter::Tiny";
 	
 	our %_CONSTANTS;
 	our @EXPORT    = qw( is_filehandle is_filename is_fileuri );
@@ -27,14 +27,6 @@ EXPORTER:
 	our %EXPORT_TAGS = (
 		smartmatch => [qw( FileHandle FileName FileUri )],
 	);
-	
-	sub _exporter_expand_sub
-	{
-		my $class = shift;
-		return ducktype      => $class->_build_ducktype(@_[0,1])      if $_[0] eq "ducktype";
-		return as_filehandle => $class->_build_as_filehandle(@_[0,1]) if $_[0] eq "as_filehandle";
-		$class->SUPER::_exporter_expand_sub(@_);
-	}
 	
 	sub _exporter_validate_opts
 	{
@@ -79,7 +71,7 @@ sub _ducktype
 	return true;
 }
 
-sub _build_ducktype
+sub _generate_ducktype
 {
 	my ($class, $name, $arg) = @_;
 	my $methods = $arg->{methods};
@@ -151,7 +143,7 @@ sub is_fileuri (;$)
 	return;
 }
 
-sub _build_as_filehandle
+sub _generate_as_filehandle
 {
 	my ($class, $name, $arg) = @_;
 	my $default_mode = $arg->{mode} || '<';
@@ -171,13 +163,13 @@ sub _build_as_filehandle
 	};
 }
 
-*as_filehandle = __PACKAGE__->_build_as_filehandle('as_filehandle', +{});
+*as_filehandle = __PACKAGE__->_generate_as_filehandle('as_filehandle', +{});
 
 {
 	package IO::Detect::SmartMatcher;
 	BEGIN {
 		$IO::Detect::SmartMatcher::AUTHORITY = 'cpan:TOBYINK';
-		$IO::Detect::SmartMatcher::VERSION   = '0.200';
+		$IO::Detect::SmartMatcher::VERSION   = '0.201';
 	}
 	use Scalar::Util qw< blessed >;
 	use overload (); no warnings 'overload';  # '~~' unavailable in Perl 5.8

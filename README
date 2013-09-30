@@ -12,12 +12,12 @@ SYNOPSIS
       does($object, ARRAY);           # false
 
 DESCRIPTION
-    It has long been noted that Perl would benefit from a "does()" built-in.
-    A check that "ref($thing) eq 'ARRAY'" doesn't allow you to accept an
-    object that uses overloading to provide an array-like interface.
+    It has long been noted that Perl would benefit from a `does()` built-in. A
+    check that `ref($thing) eq 'ARRAY'` doesn't allow you to accept an object
+    that uses overloading to provide an array-like interface.
 
   Functions
-    "does($scalar, $role)"
+    `does($scalar, $role)`
         Checks if a scalar is capable of performing the given role. The
         following (case-sensitive) roles are predefined:
 
@@ -25,9 +25,9 @@ DESCRIPTION
 
             Checks if the scalar can be used as a scalar reference.
 
-            Note: this role does not check whether a scalar is a scalar
-            (which is obviously true) but whether it is a reference to
-            another scalar.
+            Note: this role does not check whether a scalar is a scalar (which
+            is obviously true) but whether it is a reference to another
+            scalar.
 
         *   ARRAY or @{}
 
@@ -52,16 +52,16 @@ DESCRIPTION
 
         *   LVALUE
 
-            Checks if the scalar is a reference to a special lvalue (e.g.
-            the result of "substr" or "splice").
+            Checks if the scalar is a reference to a special lvalue (e.g. the
+            result of `substr` or `splice`).
 
         *   IO or <>
 
             Uses IO::Detect to check if the scalar is a filehandle or
             file-handle-like object.
 
-            (The "<>" check is slightly looser, allowing objects which
-            overload "<>", though overloading "<>" well can be a little
+            (The `<>` check is slightly looser, allowing objects which
+            overload `<>`, though overloading `<>` well can be a little
             tricky.)
 
         *   VSTRING
@@ -91,31 +91,31 @@ DESCRIPTION
             Checks if the scalar can be used as a number. (It's pretty rare
             for this to not be true.)
 
-            Note that this is far looser than "looks_like_number" from
-            Scalar::Util. For example, an unblessed arrayref can be used as
-            a number (it numifies to its reference address); the string
-            "Hello World" can be used as a number (it numifies to 0).
+            Note that this is far looser than `looks_like_number` from
+            Scalar::Util. For example, an unblessed arrayref can be used as a
+            number (it numifies to its reference address); the string "Hello
+            World" can be used as a number (it numifies to 0).
 
         *   ~~
 
-            Checks if the scalar can be used on the right hand side of a
-            smart match.
+            Checks if the scalar can be used on the right hand side of a smart
+            match.
 
-        If the given *role* is blessed, and provides a "check" method, then
-        "does" delegates to that.
+        If the given *role* is blessed, and provides a `check` method, then
+        `does` delegates to that.
 
         Otherwise, if the scalar being tested is blessed, then
-        "$scalar->DOES($role)" is called, and "does" returns true if the
+        `$scalar->DOES($role)` is called, and `does` returns true if the
         method call returned true.
 
         If the scalar being tested looks like a Perl class name, then
-        "$scalar->DOES($role)" is also called, and the string "0E0" is
+        `$scalar->DOES($role)` is also called, and the string "0E0" is
         returned for success, which evaluates to 0 in a numeric context but
         true in a boolean context.
 
-    "does($role)"
-        Called with a single argument, tests $_. Yes, this works with
-        lexical $_.
+    `does($role)`
+        Called with a single argument, tests $_. Yes, this works with lexical
+        $_.
 
           given ($object) {
              when(does ARRAY)  { ... }
@@ -123,73 +123,72 @@ DESCRIPTION
           }
 
         Note: in Scalar::Does 0.007 and below the single-argument form of
-        "does" returned a curried coderef. This was changed in Scalar::Does
+        `does` returned a curried coderef. This was changed in Scalar::Does
         0.008.
 
-    "overloads($scalar, $role)"
-        A function "overloads" (which just checks overloading) is also
+    `overloads($scalar, $role)`
+        A function `overloads` (which just checks overloading) is also
         available.
 
-    "overloads($role)"
-        Called with a single argument, tests $_. Yes, this works with
-        lexical $_.
+    `overloads($role)`
+        Called with a single argument, tests $_. Yes, this works with lexical
+        $_.
 
         Note: in Scalar::Does 0.007 and below the single-argument form of
-        "overloads" returned a curried coderef. This was changed in
+        `overloads` returned a curried coderef. This was changed in
         Scalar::Does 0.008.
 
-    "blessed($scalar)", "reftype($scalar)", "looks_like_number($scalar)"
+    `blessed($scalar)`, `reftype($scalar)`, `looks_like_number($scalar)`
         For convenience, this module can also re-export these functions from
-        Scalar::Util. "looks_like_number" is generally more useful than
-        "does($scalar, q[0+])".
+        Scalar::Util. `looks_like_number` is generally more useful than
+        `does($scalar, q[0+])`.
 
-    "make_role $name, where { BLOCK }"
+    `make_role $name, where { BLOCK }`
         Returns an anonymous role object which can be used as a parameter to
-        "does". The block is arbitrary code which should check whether $_[0]
+        `does`. The block is arbitrary code which should check whether $_[0]
         does the role.
 
-    "where { BLOCK }"
-        Syntactic sugar for "make_role". Compatible with the "where"
-        function from Moose::Util::TypeConstraints, so don't worry about
-        conflicts.
+    `where { BLOCK }`
+        Syntactic sugar for `make_role`. Compatible with the `where` function
+        from Moose::Util::TypeConstraints, so don't worry about conflicts.
 
   Constants
     The following constants may be exported for convenience:
 
-    "SCALAR"
-    "ARRAY"
-    "HASH"
-    "CODE"
-    "GLOB"
-    "REF"
-    "LVALUE"
-    "IO"
-    "VSTRING"
-    "FORMAT"
-    "REGEXP"
-    "BOOLEAN"
-    "STRING"
-    "NUMBER"
-    "SMARTMATCH"
+    `SCALAR`
+    `ARRAY`
+    `HASH`
+    `CODE`
+    `GLOB`
+    `REF`
+    `LVALUE`
+    `IO`
+    `VSTRING`
+    `FORMAT`
+    `REGEXP`
+    `BOOLEAN`
+    `STRING`
+    `NUMBER`
+    `SMARTMATCH`
 
   Export
-    By default, only "does" is exported. This module uses
-    Exporter::TypeTiny, so functions can be renamed:
+    By default, only `does` is exported. This module uses Exporter::Tiny, so
+    functions can be renamed:
 
       use Scalar::Does does => { -as => 'performs_role' };
 
     Scalar::Does also plays some tricks with namespace::clean to ensure that
     any functions it exports to your namespace are cleaned up when you're
     finished with them. This ensures that if you're writing object-oriented
-    code "does" and "overloads" will not be left hanging around as methods
-    of your classes. Moose::Object provides a "does" method, and you should
-    be able to use Scalar::Does without interfering with that.
+    code `does` and `overloads` will not be left hanging around as methods of
+    your classes. Moose::Object provides a `does` method, and you should be
+    able to use Scalar::Does without interfering with that.
 
-    You can import the constants (plus "does") using:
+    You can import the constants (plus `does`) using:
 
       use Scalar::Does -constants;
 
-    The "make_role" and "where" functions can be exported like this:
+    The `make_role` and `where` functions can be exported like this:
 
       use Scalar::Does -make;
 
@@ -216,10 +215,9 @@ SEE ALSO
 
   Relationship to Moose roles
     Scalar::Does is not dependent on Moose, and its role-checking is not
-    specific to Moose's idea of roles, but it does work well with Moose
-    roles.
+    specific to Moose's idea of roles, but it does work well with Moose roles.
 
-    Moose::Object overrides "DOES", so Moose objects and Moose roles should
+    Moose::Object overrides `DOES`, so Moose objects and Moose roles should
     "just work" with Scalar::Does.
 
       {
@@ -244,7 +242,7 @@ SEE ALSO
 
   Relationship to Moose type constraints
     Moose::Meta::TypeConstraint objects, plus the constants exported by
-    MooseX::Types libraries all provide a "check" method, so again, should
+    MooseX::Types libraries all provide a `check` method, so again, should
     "just work" with Scalar::Does. Type constraint strings are not supported
     however.
 
@@ -258,15 +256,15 @@ SEE ALSO
       does( "123", Int );      # true
       does( "123", "Int" );    # false
 
-    Mouse::Meta::TypeConstraints and MouseX::Types should be compatible
-    enough to work as well.
+    Mouse::Meta::TypeConstraints and MouseX::Types should be compatible enough
+    to work as well.
 
     See also: Moose::Meta::TypeConstraint, Moose::Util::TypeConstraints,
     MooseX::Types, Scalar::Does::MooseTypes.
 
   Relationship to Type::Tiny type constraints
-    Types built with Type::Tiny and Type::Library can be used exactly as
-    Moose type constraint objects above.
+    Types built with Type::Tiny and Type::Library can be used exactly as Moose
+    type constraint objects above.
 
       use Types::Standard qw(Int);
       use Scalar::Does qw(does);
@@ -279,9 +277,9 @@ SEE ALSO
     See also: Type::Tiny, Types::Standard.
 
   Relationship to Role::Tiny and Moo roles
-    Roles using Role::Tiny 1.002000 and above provide a "DOES" method, so
+    Roles using Role::Tiny 1.002000 and above provide a `DOES` method, so
     should work with Scalar::Does just like Moose roles. Prior to that
-    release, Role::Tiny did not provide "DOES".
+    release, Role::Tiny did not provide `DOES`.
 
     Moo's role system is based on Role::Tiny.
 
@@ -293,8 +291,8 @@ AUTHOR
 COPYRIGHT AND LICENCE
     This software is copyright (c) 2012-2013 by Toby Inkster.
 
-    This is free software; you can redistribute it and/or modify it under
-    the same terms as the Perl 5 programming language system itself.
+    This is free software; you can redistribute it and/or modify it under the
+    same terms as the Perl 5 programming language system itself.
 
 DISCLAIMER OF WARRANTIES
     THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR IMPLIED
