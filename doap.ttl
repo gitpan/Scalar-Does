@@ -44,7 +44,7 @@
 	doap:maintainer      <http://purl.org/NET/cpan-uri/person/tobyink>;
 	doap:name            "Scalar-Does";
 	doap:programming-language "Perl";
-	doap:release         <http://purl.org/NET/cpan-uri/dist/Scalar-Does/v_0-001>, <http://purl.org/NET/cpan-uri/dist/Scalar-Does/v_0-002>, <http://purl.org/NET/cpan-uri/dist/Scalar-Does/v_0-003>, <http://purl.org/NET/cpan-uri/dist/Scalar-Does/v_0-004>, <http://purl.org/NET/cpan-uri/dist/Scalar-Does/v_0-005>, <http://purl.org/NET/cpan-uri/dist/Scalar-Does/v_0-006>, <http://purl.org/NET/cpan-uri/dist/Scalar-Does/v_0-007>, <http://purl.org/NET/cpan-uri/dist/Scalar-Does/v_0-008>, <http://purl.org/NET/cpan-uri/dist/Scalar-Does/v_0-009>, <http://purl.org/NET/cpan-uri/dist/Scalar-Does/v_0-010>, <http://purl.org/NET/cpan-uri/dist/Scalar-Does/v_0-011_01>, <http://purl.org/NET/cpan-uri/dist/Scalar-Does/v_0-012>, <http://purl.org/NET/cpan-uri/dist/Scalar-Does/v_0-100>, <http://purl.org/NET/cpan-uri/dist/Scalar-Does/v_0-101>, <http://purl.org/NET/cpan-uri/dist/Scalar-Does/v_0-102>, <http://purl.org/NET/cpan-uri/dist/Scalar-Does/v_0-200>, <http://purl.org/NET/cpan-uri/dist/Scalar-Does/v_0-201>;
+	doap:release         <http://purl.org/NET/cpan-uri/dist/Scalar-Does/v_0-001>, <http://purl.org/NET/cpan-uri/dist/Scalar-Does/v_0-002>, <http://purl.org/NET/cpan-uri/dist/Scalar-Does/v_0-003>, <http://purl.org/NET/cpan-uri/dist/Scalar-Does/v_0-004>, <http://purl.org/NET/cpan-uri/dist/Scalar-Does/v_0-005>, <http://purl.org/NET/cpan-uri/dist/Scalar-Does/v_0-006>, <http://purl.org/NET/cpan-uri/dist/Scalar-Does/v_0-007>, <http://purl.org/NET/cpan-uri/dist/Scalar-Does/v_0-008>, <http://purl.org/NET/cpan-uri/dist/Scalar-Does/v_0-009>, <http://purl.org/NET/cpan-uri/dist/Scalar-Does/v_0-010>, <http://purl.org/NET/cpan-uri/dist/Scalar-Does/v_0-011_01>, <http://purl.org/NET/cpan-uri/dist/Scalar-Does/v_0-012>, <http://purl.org/NET/cpan-uri/dist/Scalar-Does/v_0-100>, <http://purl.org/NET/cpan-uri/dist/Scalar-Does/v_0-101>, <http://purl.org/NET/cpan-uri/dist/Scalar-Does/v_0-102>, <http://purl.org/NET/cpan-uri/dist/Scalar-Does/v_0-200>, <http://purl.org/NET/cpan-uri/dist/Scalar-Does/v_0-201>, <http://purl.org/NET/cpan-uri/dist/Scalar-Does/v_0-202>;
 	doap:repository      [
 		a doap:GitRepository;
 		doap:browse <https://github.com/tobyink/p5-scalar-does>;
@@ -373,10 +373,34 @@
 	doap:file-release    <http://backpan.cpan.org/authors/id/T/TO/TOBYINK/Scalar-Does-0.201.tar.gz>;
 	doap:revision        "0.201"^^xsd:string.
 
+<http://purl.org/NET/cpan-uri/dist/Scalar-Does/v_0-202>
+	a                    doap:Version;
+	dc:identifier        "Scalar-Does-0.202"^^xsd:string;
+	dc:issued            "2014-04-05"^^xsd:date;
+	doap-changeset:changeset [
+		doap-changeset:item [
+			a doap-changeset:Bugfix;
+			rdfs:label "Make t/iod-02filehandles.t clean up after itself.";
+			doap-changeset:blame <http://purl.org/NET/cpan-uri/person/pdcawley>;
+			doap-changeset:fixes <http://purl.org/NET/cpan-uri/rt/ticket/91497>;
+			doap-changeset:thanks <urn:uuid:f4c99fd1-c557-4f57-b7eb-b15915c0745d>;
+			rdfs:seeAlso <https://github.com/tobyink/p5-scalar-does/pull/1>;
+		];
+	];
+	doap-changeset:released-by <http://purl.org/NET/cpan-uri/person/tobyink>;
+	doap:file-release    <http://backpan.cpan.org/authors/id/T/TO/TOBYINK/Scalar-Does-0.202.tar.gz>;
+	doap:revision        "0.202"^^xsd:string.
+
 <http://purl.org/NET/cpan-uri/person/dami>
 	a                    foaf:Person;
 	foaf:nick            "DAMI";
 	foaf:page            <https://metacpan.org/author/DAMI>.
+
+<http://purl.org/NET/cpan-uri/person/pdcawley>
+	a                    foaf:Person;
+	foaf:name            "Piers Cawley";
+	foaf:nick            "PDCAWLEY";
+	foaf:page            <https://metacpan.org/author/PDCAWLEY>.
 
 <http://purl.org/NET/cpan-uri/person/tobyink>
 	a                    foaf:Person;
@@ -399,4 +423,13 @@
 	a                    doap-bugs:Issue;
 	doap-bugs:id         "81622"^^xsd:string;
 	doap-bugs:page       <https://rt.cpan.org/Ticket/Display.html?id=81622>.
+
+<http://purl.org/NET/cpan-uri/rt/ticket/91497>
+	a                    doap-bugs:Issue;
+	doap-bugs:id         "91497"^^xsd:string;
+	doap-bugs:page       <https://rt.cpan.org/Ticket/Display.html?id=91497>.
+
+<urn:uuid:f4c99fd1-c557-4f57-b7eb-b15915c0745d>
+	foaf:mbox            <mailto:jon@endpoint.com>;
+	foaf:name            "Jon Jensen".
 

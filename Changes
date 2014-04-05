@@ -6,6 +6,16 @@ Home page:    <https://metacpan.org/release/Scalar-Does>
 Bug tracker:  <http://rt.cpan.org/Dist/Display.html?Queue=Scalar-Does>
 Maintainer:   Toby Inkster (TOBYINK) <tobyink@cpan.org>
 
+0.202	2014-04-05
+
+ [ Bug Fixes ]
+ - Make t/iod-02filehandles.t clean up after itself.
+   Fixes RT#91497.
+   Jon Jensen++
+   Piers Cawley++
+   <https://rt.cpan.org/Ticket/Display.html?id=91497>
+   <https://github.com/tobyink/p5-scalar-does/pull/1>
+
 0.201	2013-09-30
 
  [ Packaging ]

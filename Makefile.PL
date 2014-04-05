@@ -7,7 +7,7 @@ my $meta = {
   "abstract"       => "like ref() but useful",
   "author"         => ["Toby Inkster (TOBYINK) <tobyink\@cpan.org>"],
   "dynamic_config" => 1,
-  "generated_by"   => "Dist::Inkt::Profile::TOBYINK version 0.013, CPAN::Meta::Converter version 2.120921",
+  "generated_by"   => "Dist::Inkt::Profile::TOBYINK version 0.015, CPAN::Meta::Converter version 2.120921",
   "keywords"       => [],
   "license"        => ["perl_5"],
   "meta-spec"      => {
@@ -38,21 +38,26 @@ my $meta = {
                         },
                       },
   "provides"       => {
-                        "IO::Detect" => { file => "lib/IO/Detect.pm", version => 0.201 },
-                        "IO::Detect::SmartMatcher" => { file => "lib/IO/Detect.pm", version => 0.201 },
-                        "Scalar::Does" => { file => "lib/Scalar/Does.pm", version => 0.201 },
-                        "Scalar::Does::MooseTypes" => { file => "lib/Scalar/Does/MooseTypes.pm", version => 0.201 },
-                        "Scalar::Does::RoleChecker" => { file => "lib/Scalar/Does.pm", version => 0.201 },
+                        "IO::Detect" => { file => "lib/IO/Detect.pm", version => 0.202 },
+                        "IO::Detect::SmartMatcher" => { file => "lib/IO/Detect.pm", version => 0.202 },
+                        "Scalar::Does" => { file => "lib/Scalar/Does.pm", version => 0.202 },
+                        "Scalar::Does::MooseTypes" => { file => "lib/Scalar/Does/MooseTypes.pm", version => 0.202 },
+                        "Scalar::Does::RoleChecker" => { file => "lib/Scalar/Does.pm", version => 0.202 },
                       },
   "release_status" => "stable",
   "resources"      => {
                         bugtracker   => { web => "http://rt.cpan.org/Dist/Display.html?Queue=Scalar-Does" },
                         homepage     => "https://metacpan.org/release/Scalar-Does",
                         license      => ["http://dev.perl.org/licenses/"],
-                        repository   => { type => "git", web => "https://github.com/tobyink/p5-scalar-does" },
+                        repository   => {
+                                          type => "git",
+                                          url  => "git://github.com/tobyink/p5-scalar-does.git",
+                                          web  => "https://github.com/tobyink/p5-scalar-does",
+                                        },
                         X_identifier => "http://purl.org/NET/cpan-uri/dist/Scalar-Does/project",
                       },
-  "version"        => 0.201,
+  "version"        => 0.202,
+  "x_contributors" => ["Piers Cawley (PDCAWLEY) <pdcawley\@cpan.org>"],
 };
 
 my %dynamic_config;
@@ -68,6 +73,7 @@ my %WriteMakefileArgs = (
 	VERSION    => $meta->{version},
 	EXE_FILES  => [ map $_->{file}, values %{ $meta->{x_provides_scripts} || {} } ],
 	NAME       => do { my $n = $meta->{name}; $n =~ s/-/::/g; $n },
+	test       => { TESTS => "t/*.t" },
 	%dynamic_config,
 );
 
